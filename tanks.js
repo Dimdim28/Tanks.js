@@ -14,7 +14,7 @@ const ints = {
 };
 
 let player = {
-  el: false,
+  el: null,
   x: 320,
   y: 300,
   run: false,
