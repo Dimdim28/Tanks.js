@@ -26,10 +26,10 @@ const player = {
   bulletwidth: 16,
   bulletheight: 16,
   speed: 10,
-  top: 'url(player-top.png)',
-  left: 'url(player-left.png)',
-  rigth: 'url(player-right.png)',
-  bottom: 'url(player-bottom.png)',
+  top: 'url(sprites/player-top.png)',
+  left: 'url(sprites/player-left.png)',
+  rigth: 'url(sprites/player-right.png)',
+  bottom: 'url(sprites/player-bottom.png)',
   width: 77,
   height: 77,
   run: false,
@@ -42,10 +42,10 @@ const btr = {
   speed: 20,
   hp: 500,
   damage: 100,
-  top: 'url(btr-top.png)',
-  left: 'url(btr-left.png)',
-  rigth: 'url(btr-right.png)',
-  bottom: 'url(btr-bottom.png)',
+  top: 'url(sprites/btr-top.png)',
+  left: 'url(sprites/btr-left.png)',
+  rigth: 'url(sprites/btr-right.png)',
+  bottom: 'url(sprites/btr-bottom.png)',
   width: 77,
   height: 77,
   bulletspeed: 20,
@@ -58,10 +58,10 @@ const amx = {
   speed: 15,
   hp: 700,
   damage: 300,
-  top: 'url(amx-top.png)',
-  left: 'url(amx-left.png)',
-  rigth: 'url(amx-right.png)',
-  bottom: 'url(amx-bottom.png)',
+  top: 'url(sprites/amx-top.png)',
+  left: 'url(sprites/amx-left.png)',
+  rigth: 'url(sprites/amx-right.png)',
+  bottom: 'url(sprites/amx-bottom.png)',
   width: 77,
   height: 77,
   bulletspeed: 30,
@@ -74,10 +74,10 @@ const kv2 = {
   speed: 5,
   hp: 1300,
   damage: 800,
-  top: 'url(kv2-top.png)',
-  left: 'url(kv2-left.png)',
-  rigth: 'url(kv2-right.png)',
-  bottom: 'url(kv2-bottom.png)',
+  top: 'url(sprites/kv2-top.png)',
+  left: 'url(sprites/kv2-left.png)',
+  rigth: 'url(sprites/kv2-right.png)',
+  bottom: 'url(sprites/kv2-bottom.png)',
   width: 150,
   height: 150,
   bulletspeed: 10,
@@ -99,7 +99,7 @@ function init() {
   gamezone.append(div);
   player.el = document.querySelector('.gamer');
   points.textContent = `${player.points}`;
-  hp.textContent = `${player.hp}`
+  hp.textContent = `${player.hp}`;
 }
 function controllers() {
   document.addEventListener('keydown', e => {
