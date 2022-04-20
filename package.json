@@ -1,0 +1,23 @@
+{
+  "name": "webgames",
+  "version": "1.0.0",
+  "description": "games in web",
+  "main": "tanks.js",
+  "scripts": {
+    "test": "test",
+    "lint": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dimdim28/Webgames.git"
+  },
+  "author": "Dimdim28",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dimdim28/Webgames/issues"
+  },
+  "homepage": "https://github.com/Dimdim28/Webgames#readme",
+  "dependencies": {
+    "eslint": "^8.13.0"
+  }
+}

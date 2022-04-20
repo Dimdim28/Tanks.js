@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<title>Cour✨gym✨ website</title>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="buttonGroup">
+        <button id="homeButton"><a href="index.html">Home</a></button>
+        <button id="testButton"><a href="index2.html">Test</a></button>
+      </div>
+    </div>
+    <div class="leftPanel transition">
+      <span class="content transition"> ... </span>
+      <ul class="content transition">
+        <li>Тут текст 1</li>
+        <li>Тут текст 2</li>
+        <li>Тут текст 3</li>
+        <li>Тут текст 4</li>
+      </ul>
+    </div>
+    <div class="mainBlock transition">
+      <div class="content">
+        <div class="gamezone"></div>
+        <div class="hangar">
+          <img
+            src="./player.png"
+            alt=""
+            class="player item"
+            onclick="choose(player)"
+          />
+          <img src="./btr.png" alt="" class="btr item" onclick="choose(btr)" />
+        </div>
+      </div>
+    </div>
+    <div class="footer">Made by Cour✨gym✨ team</div>
+  </div>
+  <script src="tanks.js"></script>
+</body>
