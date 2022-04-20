@@ -1,10 +1,8 @@
 'use strict';
 
 const gamezone = document.querySelector('.gamezone');
-const hangar = document.querySelector('.hangar');
 const hp = document.querySelector('.hpnumber');
 const points = document.querySelector('.pointsnumber');
-const header = document.querySelector('.header');
 
 let k = 0;
 const fps = 1000 / 60;
@@ -15,23 +13,10 @@ const ints = {
   bullet: false,
 };
 
-const player = {
+let player = {
   el: false,
   x: 320,
   y: 300,
-  hp: 1000,
-  damage: 400,
-  bulletspeed: 5,
-  bullettime: 2000,
-  bulletwidth: 16,
-  bulletheight: 16,
-  speed: 10,
-  top: 'url(sprites/player-top.png)',
-  left: 'url(sprites/player-left.png)',
-  rigth: 'url(sprites/player-right.png)',
-  bottom: 'url(sprites/player-bottom.png)',
-  width: 77,
-  height: 77,
   run: false,
   side: 0,
   fire: true,
@@ -61,6 +46,7 @@ class Tank {
 const KV2 = new Tank(5, 1300, 800, 'kv2', 150, 10, 1600, 20);
 const AMX = new Tank(15, 700, 300, 'amx', 77, 30, 800, 12);
 const BTR = new Tank(20, 500, 100, 'btr', 77, 20, 100, 8);
+const M4 = new Tank(10, 1000, 400, 'm4', 77, 5, 2000, 16);
 
 
 function init() {
@@ -151,7 +137,7 @@ function intervalls() {
       case 2: //right
         if (
           player.x <
-            gamezone.getBoundingClientRect().right - player.width * 3
+            gamezone.getBoundingClientRect().width - player.width
         ) {
           player.x += player.speed;
           player.el.style.left = `${player.x}px`;
@@ -161,7 +147,7 @@ function intervalls() {
       case 3: //bottom
         if (
           player.y <
-            gamezone.getBoundingClientRect().bottom - player.height * 2
+            gamezone.getBoundingClientRect().height - player.height
         ) {
           player.y += player.speed;
           player.el.style.top = `${player.y}px`;
@@ -196,7 +182,7 @@ function intervalls() {
       } else if (direction === 'bottom') {
         if (
           bullet.getBoundingClientRect().bottom <=
-          gamezone.getBoundingClientRect().height + player.height
+          gamezone.getBoundingClientRect().bottom
         ) {
           bullet.style.top = `${
             parseInt(bullet.style.top.replace('px', ''), 10) +
@@ -219,7 +205,7 @@ function intervalls() {
         }
       } else if (direction === 'right') {
         if (
-          bullet.getBoundingClientRect().left <=
+          bullet.getBoundingClientRect().right <
           gamezone.getBoundingClientRect().right
         ) {
           bullet.style.left = `${
@@ -258,20 +244,7 @@ function game() {
 
 const choose = obj => {
   if (k === 0) {
-    player.speed = obj.speed;
-    player.top = obj.top;
-    player.bottom = obj.bottom;
-    player.left = obj.left;
-    player.rigth = obj.rigth;
-    player.damage = obj.damage;
-    player.hp = obj.hp;
-    player.time = obj.time;
-    player.width = obj.width;
-    player.height = obj.height;
-    player.bulletspeed = obj.bulletspeed;
-    player.bullettime = obj.bullettime;
-    player.bulletwidth = obj.bulletwidth;
-    player.bulletheight = obj.bulletheight;
+    player = Object.assign(player, obj);
     game();
   }
 };
