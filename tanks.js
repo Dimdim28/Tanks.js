@@ -65,12 +65,16 @@ function init() {
   hp.textContent = `${player.hp}`;
 }
 function controllers() {
+  const WIDTH = player.width;
+  const HEIGHT = player.height;
   document.addEventListener('keydown', e => {
     console.log(e.code);
     switch (e.code) {
     case 'KeyW': //top
       player.run = true;
       player.el.style.backgroundImage = player.top;
+      player.height = HEIGHT;
+      player.width = WIDTH;
       player.el.style.height = `${player.height}px`;
       player.el.style.width = `${player.width}px`;
       player.side = 1;
@@ -79,14 +83,18 @@ function controllers() {
     case 'KeyD': //right
       player.run = true;
       player.el.style.backgroundImage = player.rigth;
-      player.el.style.width = `${player.height}px`;
-      player.el.style.height = `${player.width}px`;
+      player.height = WIDTH;
+      player.width = HEIGHT;
+      player.el.style.height = `${player.height}px`;
+      player.el.style.width = `${player.width}px`;
       player.side = 2;
       direction = 'right';
       break;
     case 'KeyS': //bottom
       player.run = true;
       player.el.style.backgroundImage = player.bottom;
+      player.height = HEIGHT;
+      player.width = WIDTH;
       player.el.style.height = `${player.height}px`;
       player.el.style.width = `${player.width}px`;
       player.side = 3;
@@ -95,20 +103,25 @@ function controllers() {
     case 'KeyA': //left
       player.run = true;
       player.el.style.backgroundImage = player.left;
-      player.el.style.width = `${player.height}px`;
-      player.el.style.height = `${player.width}px`;
+      player.height = WIDTH;
+      player.width = HEIGHT;
+      player.el.style.height = `${player.height}px`;
+      player.el.style.width = `${player.width}px`;
       player.side = 4;
       direction = 'left';
       break;
     case 'ShiftLeft':
       if (player.side === 1) {
-        addbullet(player.width / 2, 0);
+        addbullet(player.width / 2 - player.bulletwidth / 2,
+          -player.bulletheight);
       } else if (player.side === 2) {
-        addbullet(player.height, player.width / 2);
+        addbullet(player.width, player.height / 2 - player.bulletheight / 2);
       } else if (player.side === 3) {
-        addbullet(player.width / 2, player.height);
+        addbullet(player.width / 2 - player.bulletwidth / 2,
+          player.height + player.bulletheight / 2);
       } else if (player.side === 4) {
-        addbullet(0, player.width / 2);
+        addbullet(-player.bulletwidth,
+          player.height / 2 - player.bulletheight / 2);
       }
       break;
     }
