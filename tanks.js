@@ -38,53 +38,29 @@ const player = {
   points: 0,
 };
 
-const btr = {
-  speed: 20,
-  hp: 500,
-  damage: 100,
-  top: 'url(sprites/btr-top.png)',
-  left: 'url(sprites/btr-left.png)',
-  rigth: 'url(sprites/btr-right.png)',
-  bottom: 'url(sprites/btr-bottom.png)',
-  width: 77,
-  height: 77,
-  bulletspeed: 20,
-  bullettime: 100,
-  bulletwidth: 8,
-  bulletheight: 8,
-};
+class Tank {
+  constructor(speed, hp, damage, image, size,
+    bulletspeed, bullettime, bulletsize) {
+    this.speed = speed;
+    this.hp = hp;
+    this.damage = damage;
+    this.top = `url(sprites/${image}-top.png)`;
+    this.left = `url(sprites/${image}-left.png)`;
+    this.rigth = `url(sprites/${image}-right.png)`;
+    this.bottom = `url(sprites/${image}-bottom.png)`;
+    this.width = size;
+    this.height = size;
+    this.bulletspeed = bulletspeed;
+    this.bullettime = bullettime;
+    this.bulletwidth = bulletsize;
+    this.bulletheight = bulletsize;
 
-const amx = {
-  speed: 15,
-  hp: 700,
-  damage: 300,
-  top: 'url(sprites/amx-top.png)',
-  left: 'url(sprites/amx-left.png)',
-  rigth: 'url(sprites/amx-right.png)',
-  bottom: 'url(sprites/amx-bottom.png)',
-  width: 77,
-  height: 77,
-  bulletspeed: 30,
-  bullettime: 800,
-  bulletwidth: 12,
-  bulletheight: 12,
-};
+  }
+}
 
-const kv2 = {
-  speed: 5,
-  hp: 1300,
-  damage: 800,
-  top: 'url(sprites/kv2-top.png)',
-  left: 'url(sprites/kv2-left.png)',
-  rigth: 'url(sprites/kv2-right.png)',
-  bottom: 'url(sprites/kv2-bottom.png)',
-  width: 150,
-  height: 150,
-  bulletspeed: 10,
-  bullettime: 1600,
-  bulletwidth: 20,
-  bulletheight: 20,
-};
+const KV2 = new Tank(5, 1300, 800, 'kv2', 150, 10, 1600, 20);
+const AMX = new Tank(15, 700, 300, 'amx', 77, 30, 800, 12);
+const BTR = new Tank(20, 500, 100, 'btr', 77, 20, 100, 8);
 
 
 function init() {
@@ -94,8 +70,8 @@ function init() {
   div.style.left = `${player.x}px`;
   div.style.top = `${player.y}px`;
   div.style.backgroundImage = player.top;
-  div.style.height = '77px';
-  div.style.width = '77px';
+  div.style.height = `${player.height}px`;
+  div.style.width = `${player.width}px`;
   gamezone.append(div);
   player.el = document.querySelector('.gamer');
   points.textContent = `${player.points}`;
