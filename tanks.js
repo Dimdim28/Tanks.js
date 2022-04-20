@@ -24,7 +24,7 @@ let player = {
 };
 
 class Tank {
-  constructor(speed, hp, damage, image, size,
+  constructor(speed, hp, damage, image, width, height,
     bulletspeed, bullettime, bulletsize) {
     this.speed = speed;
     this.hp = hp;
@@ -33,8 +33,8 @@ class Tank {
     this.left = `url(sprites/${image}-left.png)`;
     this.rigth = `url(sprites/${image}-right.png)`;
     this.bottom = `url(sprites/${image}-bottom.png)`;
-    this.width = size;
-    this.height = size;
+    this.width = width;
+    this.height = height;
     this.bulletspeed = bulletspeed;
     this.bullettime = bullettime;
     this.bulletwidth = bulletsize;
@@ -43,10 +43,11 @@ class Tank {
   }
 }
 
-const KV2 = new Tank(5, 1300, 800, 'kv2', 150, 10, 1600, 20);
-const AMX = new Tank(15, 700, 300, 'amx', 77, 30, 800, 12);
-const BTR = new Tank(20, 500, 100, 'btr', 77, 20, 100, 8);
-const M4 = new Tank(10, 1000, 400, 'm4', 77, 5, 2000, 16);
+const KV2 = new Tank(5, 1300, 800, 'kv2', 150, 150, 10, 1600, 20);
+const AMX = new Tank(15, 700, 300, 'amx', 77, 77, 30, 800, 12);
+const BTR = new Tank(20, 500, 100, 'btr', 77, 77, 20, 100, 8);
+const M4 = new Tank(10, 1000, 400, 'm4', 77, 77, 5, 2000, 16);
+const WAFEN = new Tank(20, 2000, 1000, 'wafen', 75, 100, 30, 500, 16);
 
 
 function init() {
@@ -70,24 +71,32 @@ function controllers() {
     case 'KeyW': //top
       player.run = true;
       player.el.style.backgroundImage = player.top;
+      player.el.style.height = `${player.height}px`;
+      player.el.style.width = `${player.width}px`;
       player.side = 1;
       direction = 'top';
       break;
     case 'KeyD': //right
       player.run = true;
       player.el.style.backgroundImage = player.rigth;
+      player.el.style.width = `${player.height}px`;
+      player.el.style.height = `${player.width}px`;
       player.side = 2;
       direction = 'right';
       break;
     case 'KeyS': //bottom
       player.run = true;
       player.el.style.backgroundImage = player.bottom;
+      player.el.style.height = `${player.height}px`;
+      player.el.style.width = `${player.width}px`;
       player.side = 3;
       direction = 'bottom';
       break;
     case 'KeyA': //left
       player.run = true;
       player.el.style.backgroundImage = player.left;
+      player.el.style.width = `${player.height}px`;
+      player.el.style.height = `${player.width}px`;
       player.side = 4;
       direction = 'left';
       break;
@@ -95,11 +104,11 @@ function controllers() {
       if (player.side === 1) {
         addbullet(player.width / 2, 0);
       } else if (player.side === 2) {
-        addbullet(player.width, player.height / 2);
+        addbullet(player.height, player.width / 2);
       } else if (player.side === 3) {
         addbullet(player.width / 2, player.height);
       } else if (player.side === 4) {
-        addbullet(0, player.height / 2);
+        addbullet(0, player.width / 2);
       }
       break;
     }
