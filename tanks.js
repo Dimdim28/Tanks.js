@@ -65,33 +65,33 @@ function init() {
 }
 function controllers() {
   document.addEventListener('keydown', e => {
-    console.log(e.keyCode);
-    switch (e.keyCode) {
-    case 87: //top
+    console.log(e.code);
+    switch (e.code) {
+    case 'KeyW': //top
       player.run = true;
       player.el.style.backgroundImage = player.top;
       player.side = 1;
       direction = 'top';
       break;
-    case 68: //right
+    case 'KeyD': //right
       player.run = true;
       player.el.style.backgroundImage = player.rigth;
       player.side = 2;
       direction = 'right';
       break;
-    case 83: //bottom
+    case 'KeyS': //bottom
       player.run = true;
       player.el.style.backgroundImage = player.bottom;
       player.side = 3;
       direction = 'bottom';
       break;
-    case 65: //left
+    case 'KeyA': //left
       player.run = true;
       player.el.style.backgroundImage = player.left;
       player.side = 4;
       direction = 'left';
       break;
-    case 16:
+    case 'ShiftLeft':
       if (player.side === 1) {
         addbullet(player.width / 2, 0);
       } else if (player.side === 2) {
@@ -106,17 +106,17 @@ function controllers() {
   });
 
   document.addEventListener('keyup', e => {
-    switch (e.keyCode) {
-    case 87: //top
+    switch (e.code) {
+    case 'KeyW': //top
       player.run = false;
       break;
-    case 68: //right
+    case 'KeyD': //right
       player.run = false;
       break;
-    case 83: //bottom
+    case 'KeyS': //bottom
       player.run = false;
       break;
-    case 65: //left
+    case 'KeyA': //left
       player.run = false;
       break;
     }
