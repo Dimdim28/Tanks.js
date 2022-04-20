@@ -1,6 +1,10 @@
 'use strict';
 
 const gamezone = document.querySelector('.gamezone');
+const hangar = document.querySelector('.hangar');
+const hp = document.querySelector('.hpnumber');
+const points = document.querySelector('.pointsnumber');
+const header = document.querySelector('.header');
 
 let k = 0;
 const fps = 1000 / 60;
@@ -31,6 +35,7 @@ const player = {
   run: false,
   side: 0,
   fire: true,
+  points: 0,
 };
 
 const btr = {
@@ -49,6 +54,38 @@ const btr = {
   bulletheight: 8,
 };
 
+const amx = {
+  speed: 15,
+  hp: 700,
+  damage: 300,
+  top: 'url(amx-top.png)',
+  left: 'url(amx-left.png)',
+  rigth: 'url(amx-right.png)',
+  bottom: 'url(amx-bottom.png)',
+  width: 77,
+  height: 77,
+  bulletspeed: 30,
+  bullettime: 800,
+  bulletwidth: 12,
+  bulletheight: 12,
+};
+
+const kv2 = {
+  speed: 5,
+  hp: 1300,
+  damage: 800,
+  top: 'url(kv2-top.png)',
+  left: 'url(kv2-left.png)',
+  rigth: 'url(kv2-right.png)',
+  bottom: 'url(kv2-bottom.png)',
+  width: 150,
+  height: 150,
+  bulletspeed: 10,
+  bullettime: 1600,
+  bulletwidth: 20,
+  bulletheight: 20,
+};
+
 
 function init() {
   const div = document.createElement('div');
@@ -61,6 +98,8 @@ function init() {
   div.style.width = '77px';
   gamezone.append(div);
   player.el = document.querySelector('.gamer');
+  points.textContent = `${player.points}`;
+  hp.textContent = `${player.hp}`
 }
 function controllers() {
   document.addEventListener('keydown', e => {
