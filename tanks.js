@@ -222,13 +222,12 @@ function intervalls() {
 
 function addbullet(x, y) {
   if (player.fire === true) {
-    gamezone.innerHTML += `<div class="bullet" direction = ${direction}
+    const BULLET_EL = `<div class="bullet" direction = ${direction}
      style = "left: ${player.x + x}px; top: ${player.y + y}px;
       width:${player.bulletwidth}px; height:${
   player.bulletheight
 }px"></div>`;
-    player.el = document.querySelector('.gamer');
-    player.fire = false;
+    gamezone.insertAdjacentHTML('beforeend', BULLET_EL);    player.fire = false;
     setTimeout(() => (player.fire = true), player.bullettime);
   }
 }
