@@ -3,6 +3,8 @@
 const gamezone = document.querySelector('.gamezone');
 const hp = document.querySelector('.hpnumber');
 const points = document.querySelector('.pointsnumber');
+const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
+const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 
 let k = 0;
 const fps = 1000 / 60;
@@ -15,39 +17,114 @@ const ints = {
 
 let player = {
   el: null,
-  x: 320,
-  y: 300,
+  x: GAMEZONEWIDTH / 2,
+  y: GAMEZONEHEIGHT / 2,
   run: false,
   side: 0,
   fire: true,
   points: 0,
 };
 
-class Tank {
-  constructor(speed, hp, damage, image, width, height,
-    bulletspeed, bullettime, bulletsize) {
-    this.speed = speed;
-    this.hp = hp;
-    this.damage = damage;
-    this.top = `url(sprites/${image}-top.png)`;
-    this.left = `url(sprites/${image}-left.png)`;
-    this.rigth = `url(sprites/${image}-right.png)`;
-    this.bottom = `url(sprites/${image}-bottom.png)`;
-    this.width = width;
-    this.height = height;
-    this.bulletspeed = bulletspeed;
-    this.bullettime = bullettime;
-    this.bulletwidth = bulletsize;
-    this.bulletheight = bulletsize;
-
+class BigTank {
+  constructor(collection = new Map()) {
+    this.speed = collection.get('speed');
+    this.hp = collection.get('hp');
+    this.damage = collection.get('damage');
+    this.top = `url(sprites/${collection.get('image')}-top.png)`;
+    this.left = `url(sprites/${collection.get('image')}-left.png)`;
+    this.rigth = `url(sprites/${collection.get('image')}-right.png)`;
+    this.bottom = `url(sprites/${collection.get('image')}-bottom.png)`;
+    this.width = collection.get('width');
+    this.height = collection.get('height');
+    this.bulletspeed = collection.get('bulletspeed');
+    this.bullettime = collection.get('bullettime');
+    this.bulletsize = collection.get('bulletsize');
+    this.bulletsize = collection.get('bulletsize');
+  }
+  active() {
+    if (k === 0) {
+      player = Object.assign(player, this);
+      game();
+      console.log(player);
+    }
   }
 }
 
-const KV2 = new Tank(5, 1300, 800, 'kv2', 150, 150, 10, 1600, 20);
-const AMX = new Tank(15, 700, 300, 'amx', 77, 77, 30, 800, 12);
-const BTR = new Tank(20, 500, 100, 'btr', 77, 77, 20, 100, 8);
-const M4 = new Tank(10, 1000, 400, 'm4', 77, 77, 5, 2000, 16);
-const WAFEN = new Tank(20, 2000, 1000, 'wafen', 75, 100, 30, 500, 16);
+class SmallTank extends BigTank {
+  constructor(collection = new Map()) {
+    super(collection);
+    this.width = collection.get('size');
+    this.height = collection.get('size');
+  }
+}
+
+const M4_INFO_ARRAY = [
+  ['speed', 10],
+  ['hp', 1000],
+  ['damage', 400],
+  ['image', 'm4'],
+  ['size', 77],
+  ['bulletspeed', 5],
+  ['bullettime', 2000],
+  ['bulletsize', 16],
+];
+const M4_INFO = new Map(M4_INFO_ARRAY);
+
+const KV2_INFO_ARRAY = [
+  ['speed', 5],
+  ['hp', 1300],
+  ['damage', 800],
+  ['image', 'kv2'],
+  ['size', 150],
+  ['bulletspeed', 10],
+  ['bullettime', 1600],
+  ['bulletsize', 20],
+];
+const KV2_INFO = new Map(KV2_INFO_ARRAY);
+
+const AMX_INFO_ARRAY = [
+  ['speed', 15],
+  ['hp', 700],
+  ['damage', 300],
+  ['image', 'amx'],
+  ['size', 77],
+  ['bulletspeed', 30],
+  ['bullettime', 800],
+  ['bulletsize', 12],
+];
+const AMX_INFO = new Map(AMX_INFO_ARRAY);
+
+const BTR_INFO_ARRAY = [
+  ['speed', 20],
+  ['hp', 500],
+  ['damage', 100],
+  ['image', 'btr'],
+  ['size', 77],
+  ['bulletspeed', 20],
+  ['bullettime', 100],
+  ['bulletsize', 8],
+];
+const BTR_INFO = new Map(BTR_INFO_ARRAY);
+
+const WAFEN_INFO_ARRAY = [
+  ['speed', 20],
+  ['hp', 2000],
+  ['damage', 1000],
+  ['image', 'wafen'],
+  ['height', 100],
+  ['width', 75],
+  ['bulletspeed', 30],
+  ['bullettime', 500],
+  ['bulletsize', 15],
+];
+const WAFEN_INFO = new Map(WAFEN_INFO_ARRAY);
+
+const M4 = new SmallTank(M4_INFO);
+const AMX = new SmallTank(AMX_INFO);
+const KV2 = new SmallTank(KV2_INFO);
+const BTR = new SmallTank(BTR_INFO);
+const WAFEN = new BigTank(WAFEN_INFO);
+
 
 
 function init() {
@@ -112,16 +189,16 @@ function controllers() {
       break;
     case 'ShiftLeft':
       if (player.side === 1) {
-        addbullet(player.width / 2 - player.bulletwidth / 2,
-          -player.bulletheight);
+        addbullet(player.width / 2 - player.bulletsize / 2,
+          -player.bulletsize);
       } else if (player.side === 2) {
-        addbullet(player.width, player.height / 2 - player.bulletheight / 2);
+        addbullet(player.width, player.height / 2 - player.bulletsize / 2);
       } else if (player.side === 3) {
-        addbullet(player.width / 2 - player.bulletwidth / 2,
-          player.height + player.bulletheight / 2);
+        addbullet(player.width / 2 - player.bulletsize / 2,
+          player.height + player.bulletsize / 2);
       } else if (player.side === 4) {
-        addbullet(-player.bulletwidth,
-          player.height / 2 - player.bulletheight / 2);
+        addbullet(-player.bulletsize,
+          player.height / 2 - player.bulletsize / 2);
       }
       break;
     }
@@ -246,10 +323,11 @@ function addbullet(x, y) {
   if (player.fire === true) {
     const BULLET_EL = `<div class="bullet" direction = ${direction}
      style = "left: ${player.x + x}px; top: ${player.y + y}px;
-      width:${player.bulletwidth}px; height:${
-  player.bulletheight
+      width:${player.bulletsize}px; height:${
+  player.bulletsize
 }px"></div>`;
-    gamezone.insertAdjacentHTML('beforeend', BULLET_EL);    player.fire = false;
+    gamezone.insertAdjacentHTML('beforeend', BULLET_EL);
+    player.fire = false;
     setTimeout(() => (player.fire = true), player.bullettime);
   }
 }
@@ -263,9 +341,3 @@ function game() {
 
 
 
-const choose = obj => {
-  if (k === 0) {
-    player = Object.assign(player, obj);
-    game();
-  }
-};
