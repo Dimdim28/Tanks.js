@@ -368,80 +368,49 @@ function init() {
   points.textContent = `${player.points}`;
   hp.textContent = `${player.hp}`;
 }
+
+function turn(side, width, height) {
+  player.run = true;
+  player.side = side;
+  player.el.style.backgroundImage = player[side];
+  player.height = height;
+  player.width = width;
+  player.el.style.height = `${player.height}px`;
+  player.el.style.width = `${player.width}px`;
+}
+
 function controllers() {
   const WIDTH = player.width;
   const HEIGHT = player.height;
   document.addEventListener('keydown', e => {
-    console.log(e.code);
-    switch (e.code) {
-    case 'KeyW': //top
-      player.run = true;
-      player.el.style.backgroundImage = player.top;
-      player.height = HEIGHT;
-      player.width = WIDTH;
-      player.el.style.height = `${player.height}px`;
-      player.el.style.width = `${player.width}px`;
-      player.side = 'top';
-      break;
-    case 'KeyD': //right
-      player.run = true;
-      player.el.style.backgroundImage = player.right;
-      player.height = WIDTH;
-      player.width = HEIGHT;
-      player.el.style.height = `${player.height}px`;
-      player.el.style.width = `${player.width}px`;
-      player.side = 'right';
-      break;
-    case 'KeyS': //bottom
-      player.run = true;
-      player.el.style.backgroundImage = player.bottom;
-      player.height = HEIGHT;
-      player.width = WIDTH;
-      player.el.style.height = `${player.height}px`;
-      player.el.style.width = `${player.width}px`;
-      player.side = 'bottom';
-      break;
-    case 'KeyA': //left
-      player.run = true;
-      player.el.style.backgroundImage = player.left;
-      player.height = WIDTH;
-      player.width = HEIGHT;
-      player.el.style.height = `${player.height}px`;
-      player.el.style.width = `${player.width}px`;
-      player.side = 'left';
-      break;
-    case 'ShiftLeft':
+    if (e.code === 'KeyW') {
+      turn('top', WIDTH, HEIGHT);
+    } else if (e.code === 'KeyD') {
+      turn('right', HEIGHT, WIDTH);
+    } else if (e.code === 'KeyS') {
+      turn('bottom', WIDTH, HEIGHT);
+    } else if (e.code === 'KeyA') {
+      turn('left', HEIGHT, WIDTH);
+    } else if (e.code === 'ShiftLeft') {
       if (player.side === 'top') {
-        addbullet(player.width / 2 - player.bulletsize / 2,
-          -player.bulletsize);
+        addbullet(player.width / 2 -
+        player.bulletsize / 2, -player.bulletsize);
       } else if (player.side === 'right') {
-        addbullet(player.width, player.height / 2 - player.bulletsize / 2);
+        addbullet(player.width,
+          player.height / 2 - player.bulletsize / 2);
       } else if (player.side === 'bottom') {
-        addbullet(player.width / 2 - player.bulletsize / 2,
-          player.height + player.bulletsize / 2);
+        addbullet(player.width / 2 -
+        player.bulletsize / 2, player.height + player.bulletsize / 2);
       } else if (player.side === 'left') {
         addbullet(-player.bulletsize,
           player.height / 2 - player.bulletsize / 2);
       }
-      break;
     }
   });
 
   document.addEventListener('keyup', e => {
-    switch (e.code) {
-    case 'KeyW': //top
-      player.run = false;
-      break;
-    case 'KeyD': //right
-      player.run = false;
-      break;
-    case 'KeyS': //bottom
-      player.run = false;
-      break;
-    case 'KeyA': //left
-      player.run = false;
-      break;
-    }
+    const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
+    if (codes.includes(e.code)) player.run = false;
   });
 }
 
