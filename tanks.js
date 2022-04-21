@@ -579,19 +579,18 @@ function game() {
   k++;
 }
 
+const ENEMIES = [enemy1, enemy2, enemy3, enemy4];
 
 function spawnenemies() {
-  enemy1.spawn();
-  enemy2.spawn();
-  enemy3.spawn();
-  enemy4.spawn();
+  for (const enemy of ENEMIES) {
+    enemy.spawn();
+  }
 }
 
 function moveenemies() {
-  enemy1.move();
-  enemy2.move();
-  enemy3.move();
-  enemy4.move();
+  for (const enemy of ENEMIES) {
+    enemy.move();
+  }
 }
 
 
