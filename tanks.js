@@ -11,7 +11,6 @@ const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 
 let k = 0;
 const fps = 1000 / 60;
-let direction;
 
 const ints = {
   run: false,
@@ -23,7 +22,7 @@ let player = {
   x: GAMEZONEWIDTH / 2,
   y: GAMEZONEHEIGHT / 2,
   run: false,
-  side: 0,
+  side: '',
   fire: true,
   points: 0,
 };
@@ -295,7 +294,6 @@ const ENEMY1_INFO_ARRAY = [
   ['y', 0],
   ['side', 2]
 ];
-
 const ENEMY1_INFO = new Map(ENEMY1_INFO_ARRAY);
 
 const ENEMY2_INFO_ARRAY = [
@@ -334,7 +332,6 @@ const ENEMY3_INFO_ARRAY = [
 ];
 const ENEMY3_INFO = new Map(ENEMY3_INFO_ARRAY);
 
-
 const ENEMY4_INFO_ARRAY = [
   ['speed', 10],
   ['hp', 1000],
@@ -351,8 +348,6 @@ const ENEMY4_INFO_ARRAY = [
   ['side', 1]
 ];
 const ENEMY4_INFO = new Map(ENEMY4_INFO_ARRAY);
-
-
 
 const enemy1 = new Enemy(ENEMY1_INFO);
 const enemy2 = new Enemy(ENEMY2_INFO);
@@ -386,8 +381,7 @@ function controllers() {
       player.width = WIDTH;
       player.el.style.height = `${player.height}px`;
       player.el.style.width = `${player.width}px`;
-      player.side = 1;
-      direction = 'top';
+      player.side = 'top';
       break;
     case 'KeyD': //right
       player.run = true;
@@ -396,8 +390,7 @@ function controllers() {
       player.width = HEIGHT;
       player.el.style.height = `${player.height}px`;
       player.el.style.width = `${player.width}px`;
-      player.side = 2;
-      direction = 'right';
+      player.side = 'right';
       break;
     case 'KeyS': //bottom
       player.run = true;
@@ -406,8 +399,7 @@ function controllers() {
       player.width = WIDTH;
       player.el.style.height = `${player.height}px`;
       player.el.style.width = `${player.width}px`;
-      player.side = 3;
-      direction = 'bottom';
+      player.side = 'bottom';
       break;
     case 'KeyA': //left
       player.run = true;
@@ -416,19 +408,18 @@ function controllers() {
       player.width = HEIGHT;
       player.el.style.height = `${player.height}px`;
       player.el.style.width = `${player.width}px`;
-      player.side = 4;
-      direction = 'left';
+      player.side = 'left';
       break;
     case 'ShiftLeft':
-      if (player.side === 1) {
+      if (player.side === 'top') {
         addbullet(player.width / 2 - player.bulletsize / 2,
           -player.bulletsize);
-      } else if (player.side === 2) {
+      } else if (player.side === 'right') {
         addbullet(player.width, player.height / 2 - player.bulletsize / 2);
-      } else if (player.side === 3) {
+      } else if (player.side === 'bottom') {
         addbullet(player.width / 2 - player.bulletsize / 2,
           player.height + player.bulletsize / 2);
-      } else if (player.side === 4) {
+      } else if (player.side === 'left') {
         addbullet(-player.bulletsize,
           player.height / 2 - player.bulletsize / 2);
       }
@@ -465,14 +456,14 @@ function SetInt(func) {
 function run() {
   if (player.run) {
     switch (player.side) {
-    case 1: //top
+    case 'top':
       if (player.y > 0) {
         player.y -= player.speed;
         player.el.style.top = `${player.y}px`;
       }
 
       break;
-    case 2: //right
+    case 'right':
       if (
         player.x <
             gamezone.getBoundingClientRect().width - player.width
@@ -482,7 +473,7 @@ function run() {
       }
 
       break;
-    case 3: //bottom
+    case 'bottom':
       if (
         player.y <
             gamezone.getBoundingClientRect().height - player.height
@@ -492,7 +483,7 @@ function run() {
       }
 
       break;
-    case 4: //left
+    case 'left':
       if (player.x > 0) {
         player.x -= player.speed;
         player.el.style.left = `${player.x}px`;
@@ -572,7 +563,7 @@ function intervalls() {
 
 function addbullet(x, y) {
   if (player.fire === true) {
-    const BULLET_EL = `<div class="bullet" direction = ${direction}
+    const BULLET_EL = `<div class="bullet" direction = ${player.side}
      style = "left: ${player.x + x}px; top: ${player.y + y}px;
       width:${player.bulletsize}px; height:${
   player.bulletsize
