@@ -107,8 +107,19 @@ class Enemy extends SmallTank {
   move() {
     if (this.side === 1) {
       if (this.y > 0) {
-        this.y -= this.speed;
-        this.el.style.top = `${this.y}px`;
+        if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
+        this.height / 4) {
+          if (this.x + this.width < player.x) {
+            this.side = 2;
+            this.el.style.backgroundImage = this.right;
+          } else if (this.x > player.x + player.width) {
+            this.side = 4;
+            this.el.style.backgroundImage = this.left;
+          }
+        } else {
+          this.y -= this.speed;
+          this.el.style.top = `${this.y}px`;
+        }
       } else {
         this.side = 2;
         this.el.style.backgroundImage = this.right;
@@ -117,8 +128,19 @@ class Enemy extends SmallTank {
 
     } else if (this.side === 2) {
       if (this.x < gamezone.getBoundingClientRect().width - this.width) {
-        this.x += this.speed;
-        this.el.style.left = `${this.x}px`;
+        if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
+        this.height / 4) {
+          if (this.y > player.y + player.height) {
+            this.side = 1;
+            this.el.style.backgroundImage = this.top;
+          } else if (this.y + this.height < player.y) {
+            this.side = 3;
+            this.el.style.backgroundImage = this.bottom;
+          }
+        } else {
+          this.x += this.speed;
+          this.el.style.left = `${this.x}px`;
+        }
       } else {
         this.side = 3;
         this.el.style.backgroundImage = this.bottom;
@@ -127,24 +149,47 @@ class Enemy extends SmallTank {
 
     } else if (this.side === 3) {
       if (this.y < gamezone.getBoundingClientRect().height - this.height) {
-        this.y += this.speed;
-        this.el.style.top = `${this.y}px`;
+        if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
+         this.height / 4) {
+          if (this.x + this.width < player.x) {
+            this.side = 2;
+            this.el.style.backgroundImage = this.right;
+          } else if (this.x > player.x + player.width) {
+            this.side = 4;
+            this.el.style.backgroundImage = this.left;
+          }
+        } else {
+          this.y += this.speed;
+          this.el.style.top = `${this.y}px`;
+        }
       } else {
         this.side = 4;
         this.el.style.backgroundImage = this.left;
         return 0;
       }
 
+
     } else if (this.side === 4) {
       if (this.x > 0) {
-        this.x -= this.speed;
-        this.el.style.left = `${this.x}px`;
+        if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
+        this.height / 4) {
+          if (this.y > player.y + player.height) {
+            this.side = 1;
+            this.el.style.backgroundImage = this.top;
+          } else if (this.y + this.height < player.y) {
+            this.side = 3;
+            this.el.style.backgroundImage = this.bottom;
+          }
+        } else {
+          this.x -= this.speed;
+          this.el.style.left = `${this.x}px`;
+        }
+
       } else {
         this.side = 1;
         this.el.style.backgroundImage = this.top;
         return 0;
       }
-
     }
   }
 }
