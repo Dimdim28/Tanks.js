@@ -459,16 +459,17 @@ function addbullet(x, y) {
 
 function game() {
   init();
+  spawnenemies();
   controllers();
   intervalls();
   k++;
 }
 
 
+function spawnenemies() {
+  enemy1.spawn();
+  enemy2.spawn();
+  enemy3.spawn();
+  enemy4.spawn();
+}
 
-console.log(enemy1);
-enemy1.spawn();
-enemy2.spawn();
-enemy3.spawn();
-enemy4.spawn();
-console.log(enemy1);
