@@ -1,8 +1,11 @@
 'use strict';
 
 const gamezone = document.querySelector('.gamezone');
+const hangar = document.querySelector('.hangar');
 const hp = document.querySelector('.hpnumber');
 const points = document.querySelector('.pointsnumber');
+const leftpanel = document.querySelector('.leftPanel');
+
 const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
 const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 
@@ -50,6 +53,56 @@ class SmallTank extends BigTank {
     super(collection);
     this.width = collection.get('size');
     this.height = collection.get('size');
+  }
+}
+
+class Enemy extends SmallTank {
+  constructor(collection = new Map()) {
+    super(collection);
+    this.name = collection.get('name');
+    this.points = collection.get('points');
+    this.x = collection.get('x');
+    this.y = collection.get('y');
+    this.side = collection.get('side');
+  }
+
+  find() {
+    this.el = document.querySelector(`.${this.name}`);
+  }
+
+  back() {
+    if (this.side === 1) {
+      this.el.style.backgroundImage = this.top;
+    } else if (this.side === 2) {
+      this.el.style.backgroundImage = this.right;
+    } else if (this.side === 3) {
+      this.el.style.backgroundImage = this.bottom;
+    } else if (this.side === 4) {
+      this.el.style.backgroundImage = this.left;
+    }
+  }
+
+  spawn() {
+    const div = document.createElement('div');
+    div.className = `${this.name}`;
+    div.style.display = 'block';
+    if (this.name === 'enemy2') {
+      this.x -= this.width;
+    } else if (this.name === 'enemy3') {
+      this.x -= this.width;
+      this.y -= this.height;
+    } else if (this.name === 'enemy4') {
+      this.y -= this.height;
+    }
+    div.style.left = `${this.x}px`;
+    div.style.top = `${this.y}px`;
+    div.style.height = `${this.height}px`;
+    div.style.width = `${this.width}px`;
+    div.classList.add('enemy');
+    gamezone.append(div);
+    this.find();
+    this.back();
+
   }
 }
 
@@ -120,7 +173,84 @@ const KV2 = new SmallTank(KV2_INFO);
 const BTR = new SmallTank(BTR_INFO);
 const WAFEN = new BigTank(WAFEN_INFO);
 
+const ENEMY1_INFO_ARRAY = [
+  ['speed', 10],
+  ['hp', 1000],
+  ['damage', 400],
+  ['image', 'enemy'],
+  ['size', 77],
+  ['bulletspeed', 5],
+  ['bullettime', 2000],
+  ['bulletsize', 16],
+  ['points', 100],
+  ['name', 'enemy1'],
+  ['x', 0],
+  ['y', 0],
+  ['side', 2]
+];
 
+const ENEMY1_INFO = new Map(ENEMY1_INFO_ARRAY);
+
+const ENEMY2_INFO_ARRAY = [
+  ['speed', 10],
+  ['hp', 1000],
+  ['damage', 400],
+  ['image', 'enemy'],
+  ['size', 77],
+  ['bulletspeed', 5],
+  ['bullettime', 2000],
+  ['bulletsize', 16],
+  ['points', 100],
+  ['name', 'enemy2'],
+  ['x', hangar.getBoundingClientRect().left -
+   leftpanel.getBoundingClientRect().width],
+  ['y', 0],
+  ['side', 3]
+];
+const ENEMY2_INFO = new Map(ENEMY2_INFO_ARRAY);
+
+const ENEMY3_INFO_ARRAY = [
+  ['speed', 10],
+  ['hp', 1000],
+  ['damage', 400],
+  ['image', 'enemy'],
+  ['size', 77],
+  ['bulletspeed', 5],
+  ['bullettime', 2000],
+  ['bulletsize', 16],
+  ['points', 100],
+  ['name', 'enemy3'],
+  ['x', hangar.getBoundingClientRect().left -
+  leftpanel.getBoundingClientRect().width],
+  ['y', gamezone.getBoundingClientRect().height],
+  ['side', 4]
+];
+const ENEMY3_INFO = new Map(ENEMY3_INFO_ARRAY);
+
+
+const ENEMY4_INFO_ARRAY = [
+  ['speed', 10],
+  ['hp', 1000],
+  ['damage', 400],
+  ['image', 'enemy'],
+  ['size', 77],
+  ['bulletspeed', 5],
+  ['bullettime', 2000],
+  ['bulletsize', 16],
+  ['points', 100],
+  ['name', 'enemy4'],
+  ['x', 0],
+  ['y', gamezone.getBoundingClientRect().height],
+  ['side', 1]
+];
+const ENEMY4_INFO = new Map(ENEMY4_INFO_ARRAY);
+
+
+
+const enemy1 = new Enemy(ENEMY1_INFO);
+const enemy2 = new Enemy(ENEMY2_INFO);
+const enemy3 = new Enemy(ENEMY3_INFO);
+const enemy4 = new Enemy(ENEMY4_INFO);
 
 function init() {
   const div = document.createElement('div');
@@ -154,7 +284,7 @@ function controllers() {
       break;
     case 'KeyD': //right
       player.run = true;
-      player.el.style.backgroundImage = player.rigth;
+      player.el.style.backgroundImage = player.right;
       player.height = WIDTH;
       player.width = HEIGHT;
       player.el.style.height = `${player.height}px`;
@@ -336,3 +466,9 @@ function game() {
 
 
 
+console.log(enemy1);
+enemy1.spawn();
+enemy2.spawn();
+enemy3.spawn();
+enemy4.spawn();
+console.log(enemy1);

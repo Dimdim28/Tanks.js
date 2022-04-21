@@ -160,13 +160,13 @@ body { /*убирает пробел*/
 }
 
 .gamer{
-    position: relative;
+    position: absolute;
     background-size: cover;
 }
 
 .enemy{
-    position: relative;
-    background-size: cover;
+    position: absolute;
+    background-size: 100% 100%;
 }
 
 .item{
