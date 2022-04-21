@@ -27,19 +27,14 @@ let player = {
 
 class BigTank {
   constructor(collection = new Map()) {
-    this.speed = collection.get('speed');
-    this.hp = collection.get('hp');
-    this.damage = collection.get('damage');
-    this.top = `url(sprites/${collection.get('image')}-top.png)`;
-    this.left = `url(sprites/${collection.get('image')}-left.png)`;
-    this.rigth = `url(sprites/${collection.get('image')}-right.png)`;
-    this.bottom = `url(sprites/${collection.get('image')}-bottom.png)`;
-    this.width = collection.get('width');
-    this.height = collection.get('height');
-    this.bulletspeed = collection.get('bulletspeed');
-    this.bullettime = collection.get('bullettime');
-    this.bulletsize = collection.get('bulletsize');
-    this.bulletsize = collection.get('bulletsize');
+    const KEYS = collection.keys();
+    const SIDE_ARRAY = ['top', 'left', 'bottom', 'right'];
+    for (const key of KEYS) {
+      this[key] = collection.get(key);
+    }
+    for (const key of SIDE_ARRAY) {
+      this[key] = `url(sprites/${collection.get('image')}-${key}.png)`;
+    }
   }
   active() {
     if (k === 0) {
