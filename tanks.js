@@ -46,6 +46,9 @@ class BigTank {
       console.log(player);
     }
   }
+  die() {
+    this.el.parentNode.removeChild(this.el);
+  }
 }
 
 class SmallTank extends BigTank {
@@ -115,6 +118,10 @@ class Enemy extends SmallTank {
           } else if (this.x > player.x + player.width) {
             this.side = 4;
             this.el.style.backgroundImage = this.left;
+          } else {
+            const playerHealth = player.hp;
+            player.hp -= this.hp;
+            this.hp -= playerHealth;
           }
         } else {
           this.y -= this.speed;
@@ -136,6 +143,10 @@ class Enemy extends SmallTank {
           } else if (this.y + this.height < player.y) {
             this.side = 3;
             this.el.style.backgroundImage = this.bottom;
+          } else {
+            const playerHealth = player.hp;
+            player.hp -= this.hp;
+            this.hp -= playerHealth;
           }
         } else {
           this.x += this.speed;
@@ -157,6 +168,10 @@ class Enemy extends SmallTank {
           } else if (this.x > player.x + player.width) {
             this.side = 4;
             this.el.style.backgroundImage = this.left;
+          } else {
+            const playerHealth = player.hp;
+            player.hp -= this.hp;
+            this.hp -= playerHealth;
           }
         } else {
           this.y += this.speed;
@@ -179,6 +194,10 @@ class Enemy extends SmallTank {
           } else if (this.y + this.height < player.y) {
             this.side = 3;
             this.el.style.backgroundImage = this.bottom;
+          } else {
+            const playerHealth = player.hp;
+            player.hp -= this.hp;
+            this.hp -= playerHealth;
           }
         } else {
           this.x -= this.speed;
@@ -533,6 +552,10 @@ function intervalls() {
   ints.enemmove = setInterval(() => {
     moveenemies();
   }, fps);
+  ints.points = setInterval(() => {
+    points.textContent = `${player.points}`;
+    hp.textContent = `${player.hp}`;
+  }, fps);
 }
 
 function addbullet(x, y) {
@@ -570,3 +593,9 @@ function moveenemies() {
   enemy3.move();
   enemy4.move();
 }
+
+
+
+setTimeout(() => {
+  enemy1.die();
+}, 2000);
