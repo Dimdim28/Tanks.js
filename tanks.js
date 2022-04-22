@@ -99,15 +99,16 @@ class Enemy extends SmallTank {
 
   }
   move() {
+    const DifferenceWith = Math.abs(this.x + this.width / 2 -
+     player.x - player.width / 2);
+    const DifferenceHeight = Math.abs(this.y + this.height / 2 -
+     player.y - player.height / 2);
+
     if (this.side === 'top') {
       if (this.y > 0) {
-        if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
-        this.height / 4) {
-          if (this.x + this.width < player.x) {
-            turn(this, 'right', this.height, this.width);
-          } else if (this.x > player.x + player.width) {
-            turn(this, 'left', this.height, this.width);
-          } else { collision(player, this); }
+        if (DifferenceHeight < this.height / 4) {
+          TurnToCollision(this, 'right', 'left', this.x + this.width <
+        player.x, this.x > player.x + player.width);
         } else {
           this.y -= this.speed;
           this.el.style.top = `${this.y}px`;
@@ -120,13 +121,9 @@ class Enemy extends SmallTank {
 
     } else if (this.side === 'right') {
       if (this.x < gamezone.getBoundingClientRect().width - this.width) {
-        if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
-        this.height / 4) {
-          if (this.y > player.y + player.height) {
-            turn(this, 'top', this.width, this.height);
-          } else if (this.y + this.height < player.y) {
-            turn(this, 'bottom', this.width, this.height);
-          } else { collision(player, this); }
+        if (DifferenceWith < this.width / 4) {
+          TurnToCollision(this, 'top', 'bottom', this.y >
+          player.y + player.height, this.y + this.height < player.y);
         } else {
           this.x += this.speed;
           this.el.style.left = `${this.x}px`;
@@ -138,13 +135,9 @@ class Enemy extends SmallTank {
 
     } else if (this.side === 'bottom') {
       if (this.y < gamezone.getBoundingClientRect().height - this.height) {
-        if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
-         this.height / 4) {
-          if (this.x + this.width < player.x) {
-            turn(this, 'right', this.height, this.width);
-          } else if (this.x > player.x + player.width) {
-            turn(this, 'left', this.height, this.width);
-          } else { collision(player, this); }
+        if (DifferenceHeight < this.height / 4) {
+          TurnToCollision(this, 'right', 'left', this.x + this.width <
+          player.x, this.x > player.x + player.width);
         } else {
           this.y += this.speed;
           this.el.style.top = `${this.y}px`;
@@ -157,13 +150,9 @@ class Enemy extends SmallTank {
 
     } else if (this.side === 'left') {
       if (this.x > 0) {
-        if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
-        this.height / 4) {
-          if (this.y > player.y + player.height) {
-            turn(this, 'top', this.width, this.height);
-          } else if (this.y + this.height < player.y) {
-            turn(this, 'bottom', this.width, this.height);
-          } else { collision(player, this); }
+        if (DifferenceWith < this.width / 4) {
+          TurnToCollision(this, 'top', 'bottom', this.y >
+          player.y + player.height, this.y + this.height < player.y);
         } else {
           this.x -= this.speed;
           this.el.style.left = `${this.x}px`;
@@ -391,6 +380,15 @@ function collision(player, enemy) {
   ShowPoints();
 }
 
+function TurnToCollision(element, side1, side2, condition1, condition2) {
+  if (condition1) {
+    turn(element, side1, element.height, element.width);
+  } else if (condition2) {
+    turn(element, side2, element.height, element.width);
+  } else {
+    collision(player, element);
+  }
+}
 
 function run() {
   if (player.run) {
