@@ -335,8 +335,6 @@ function turn(tank, side, width, height) {
 function controllers() {
   const WIDTH = player.width;
   const HEIGHT = player.height;
-  const widthZone = gamezone.getBoundingClientRect().width;
-  const heightZone = gamezone.getBoundingClientRect().height;
   document.addEventListener('keydown', e => {
     if (e.code === 'KeyW') {
       turn(player, 'top', WIDTH, HEIGHT);
@@ -347,20 +345,8 @@ function controllers() {
     } else if (e.code === 'KeyA') {
       turn(player, 'left', HEIGHT, WIDTH);
     } else if (e.code === 'ShiftLeft') {
-      if (player.side === 'top') {
-        addbullet(player, player.x + player.width / 2 -
-        player.bulletsize / 2, player.y - player.bulletsize);
-      } else if (player.side === 'right') {
-        addbullet(player, widthZone - player.x -
-          player.width, player.y + player.height / 2 - player.bulletsize / 2);
-      } else if (player.side === 'bottom') {
-        addbullet(player, player.x + player.width / 2 -
-        player.bulletsize / 2, heightZone - player.y -
-        player.height - player.bulletsize / 2);
-      } else if (player.side === 'left') {
-        addbullet(player, player.x - player.bulletsize, player.y +
-          player.height / 2 - player.bulletsize / 2);
-      }
+      player.fire = true;
+      Shooting(player);
     }
   });
 
@@ -390,6 +376,34 @@ function TurnToCollision(element, side1, side2, condition1, condition2) {
     turn(element, side2, element.height, element.width);
   } else {
     collision(player, element);
+  }
+}
+
+function oneBullet(el) {
+  const widthZone = gamezone.getBoundingClientRect().width;
+  const heightZone = gamezone.getBoundingClientRect().height;
+  if (el.side === 'top') {
+    addbullet(el, el.x + el.width / 2 -
+   el.bulletsize / 2, el.y - el.bulletsize);
+  } else if (el.side === 'right') {
+    addbullet(el, widthZone -
+    el.x - el.width, el.y + el.height / 2 - el.bulletsize / 2);
+  } else if (el.side === 'bottom') {
+    addbullet(el, el.x + el.width / 2 -
+  el.bulletsize / 2, heightZone - el.y - el.height - el.bulletsize / 2);
+  } else if (el.side === 'left') {
+    addbullet(el, el.x -
+    el.bulletsize, el.y + el.height / 2 - el.bulletsize / 2);
+  }
+}
+
+function Shooting(el) {
+  if (el.fire === true) {
+    oneBullet(el);
+    setTimeout(() => {
+      if (el.fire === false) return;
+      Shooting(el);
+    }, el.bullettime);
   }
 }
 
@@ -439,7 +453,6 @@ function intervalls() {
 }
 
 function addbullet(tank, x, y) {
-
   const direction = tank.side;
   let horisontal = 'left';
   let vertical = 'top';
