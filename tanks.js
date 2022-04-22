@@ -346,16 +346,16 @@ function controllers() {
       turn(player, 'left', HEIGHT, WIDTH);
     } else if (e.code === 'ShiftLeft') {
       if (player.side === 'top') {
-        addbullet(player.width / 2 -
+        addbullet(player, player.width / 2 -
         player.bulletsize / 2, -player.bulletsize);
       } else if (player.side === 'right') {
-        addbullet(player.width,
+        addbullet(player, player.width,
           player.height / 2 - player.bulletsize / 2);
       } else if (player.side === 'bottom') {
-        addbullet(player.width / 2 -
+        addbullet(player, player.width / 2 -
         player.bulletsize / 2, player.height + player.bulletsize / 2);
       } else if (player.side === 'left') {
-        addbullet(-player.bulletsize,
+        addbullet(player, -player.bulletsize,
           player.height / 2 - player.bulletsize / 2);
       }
     }
@@ -451,16 +451,16 @@ function intervalls() {
   ints.enemmove = SetInt(moveenemies);
 }
 
-function addbullet(x, y) {
-  if (player.fire === true) {
-    const BULLET_EL = `<div class="bullet" direction = ${player.side}
-     style = "left: ${player.x + x}px; top: ${player.y + y}px;
-      width:${player.bulletsize}px; height:${
-  player.bulletsize
+function addbullet(tank, x, y) {
+  if (tank.fire === true) {
+    const BULLET_EL = `<div class="bullet" direction = ${tank.side}
+     style = "left: ${tank.x + x}px; top: ${tank.y + y}px;
+      width:${tank.bulletsize}px; height:${
+  tank.bulletsize
 }px"></div>`;
     gamezone.insertAdjacentHTML('beforeend', BULLET_EL);
-    player.fire = false;
-    setTimeout(() => (player.fire = true), player.bullettime);
+    tank.fire = false;
+    setTimeout(() => (tank.fire = true), tank.bullettime);
   }
 }
 
