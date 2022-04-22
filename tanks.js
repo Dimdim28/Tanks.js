@@ -73,15 +73,7 @@ class Enemy extends SmallTank {
   }
 
   back() {
-    if (this.side === 1) {
-      this.el.style.backgroundImage = this.top;
-    } else if (this.side === 2) {
-      this.el.style.backgroundImage = this.right;
-    } else if (this.side === 3) {
-      this.el.style.backgroundImage = this.bottom;
-    } else if (this.side === 4) {
-      this.el.style.backgroundImage = this.left;
-    }
+    this.el.style.backgroundImage = this[this.side];
   }
 
   spawn() {
@@ -107,96 +99,100 @@ class Enemy extends SmallTank {
 
   }
   move() {
-    if (this.side === 1) {
+    if (this.side === 'top') {
       if (this.y > 0) {
         if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
         this.height / 4) {
           if (this.x + this.width < player.x) {
-            this.side = 2;
+            this.side = 'right';
             this.el.style.backgroundImage = this.right;
           } else if (this.x > player.x + player.width) {
-            this.side = 4;
+            this.side = 'left';
             this.el.style.backgroundImage = this.left;
           } else {
             const playerHealth = player.hp;
             player.hp -= this.hp;
             this.hp -= playerHealth;
+            ShowPoints();
           }
         } else {
           this.y -= this.speed;
           this.el.style.top = `${this.y}px`;
         }
       } else {
-        this.side = 2;
+        this.side = 'right';
         this.el.style.backgroundImage = this.right;
         return 0;
       }
 
-    } else if (this.side === 2) {
+    } else if (this.side === 'right') {
       if (this.x < gamezone.getBoundingClientRect().width - this.width) {
         if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
         this.height / 4) {
           if (this.y > player.y + player.height) {
-            this.side = 1;
+            this.side = 'top';
             this.el.style.backgroundImage = this.top;
           } else if (this.y + this.height < player.y) {
-            this.side = 3;
+            this.side = 'bottom';
             this.el.style.backgroundImage = this.bottom;
           } else {
             const playerHealth = player.hp;
             player.hp -= this.hp;
             this.hp -= playerHealth;
+            ShowPoints();
           }
         } else {
           this.x += this.speed;
           this.el.style.left = `${this.x}px`;
         }
       } else {
-        this.side = 3;
+        this.side = 'bottom';
         this.el.style.backgroundImage = this.bottom;
         return 0;
       }
 
-    } else if (this.side === 3) {
+    } else if (this.side === 'bottom') {
       if (this.y < gamezone.getBoundingClientRect().height - this.height) {
         if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
          this.height / 4) {
           if (this.x + this.width < player.x) {
-            this.side = 2;
+            this.side = 'right';
             this.el.style.backgroundImage = this.right;
           } else if (this.x > player.x + player.width) {
-            this.side = 4;
+            this.side = 'left';
             this.el.style.backgroundImage = this.left;
           } else {
             const playerHealth = player.hp;
             player.hp -= this.hp;
             this.hp -= playerHealth;
+            ShowPoints();
           }
         } else {
           this.y += this.speed;
           this.el.style.top = `${this.y}px`;
         }
       } else {
-        this.side = 4;
+        this.side = 'left';
         this.el.style.backgroundImage = this.left;
         return 0;
       }
 
 
-    } else if (this.side === 4) {
+    } else if (this.side === 'left') {
       if (this.x > 0) {
         if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
         this.height / 4) {
           if (this.y > player.y + player.height) {
-            this.side = 1;
+            this.side = 'top';
             this.el.style.backgroundImage = this.top;
           } else if (this.y + this.height < player.y) {
-            this.side = 3;
+            this.side = 'bottom';
             this.el.style.backgroundImage = this.bottom;
           } else {
             const playerHealth = player.hp;
             player.hp -= this.hp;
             this.hp -= playerHealth;
+            ShowPoints();
           }
         } else {
           this.x -= this.speed;
@@ -204,7 +200,7 @@ class Enemy extends SmallTank {
         }
 
       } else {
-        this.side = 1;
+        this.side = 'top';
         this.el.style.backgroundImage = this.top;
         return 0;
       }
@@ -292,7 +288,7 @@ const ENEMY1_INFO_ARRAY = [
   ['name', 'enemy1'],
   ['x', 0],
   ['y', 0],
-  ['side', 2]
+  ['side', 'right']
 ];
 const ENEMY1_INFO = new Map(ENEMY1_INFO_ARRAY);
 
@@ -310,7 +306,7 @@ const ENEMY2_INFO_ARRAY = [
   ['x', hangar.getBoundingClientRect().left -
    leftpanel.getBoundingClientRect().width],
   ['y', 0],
-  ['side', 3]
+  ['side', 'bottom']
 ];
 const ENEMY2_INFO = new Map(ENEMY2_INFO_ARRAY);
 
@@ -328,7 +324,7 @@ const ENEMY3_INFO_ARRAY = [
   ['x', hangar.getBoundingClientRect().left -
   leftpanel.getBoundingClientRect().width],
   ['y', gamezone.getBoundingClientRect().height],
-  ['side', 4]
+  ['side', 'left']
 ];
 const ENEMY3_INFO = new Map(ENEMY3_INFO_ARRAY);
 
@@ -345,7 +341,7 @@ const ENEMY4_INFO_ARRAY = [
   ['name', 'enemy4'],
   ['x', 0],
   ['y', gamezone.getBoundingClientRect().height],
-  ['side', 1]
+  ['side', 'top']
 ];
 const ENEMY4_INFO = new Map(ENEMY4_INFO_ARRAY);
 
@@ -424,96 +420,50 @@ function SetInt(func) {
 
 function run() {
   if (player.run) {
-    switch (player.side) {
-    case 'top':
-      if (player.y > 0) {
-        player.y -= player.speed;
-        player.el.style.top = `${player.y}px`;
-      }
-
-      break;
-    case 'right':
-      if (
-        player.x <
-            gamezone.getBoundingClientRect().width - player.width
-      ) {
-        player.x += player.speed;
-        player.el.style.left = `${player.x}px`;
-      }
-
-      break;
-    case 'bottom':
-      if (
-        player.y <
-            gamezone.getBoundingClientRect().height - player.height
-      ) {
-        player.y += player.speed;
-        player.el.style.top = `${player.y}px`;
-      }
-
-      break;
-    case 'left':
-      if (player.x > 0) {
-        player.x -= player.speed;
-        player.el.style.left = `${player.x}px`;
-      }
-      break;
-    }
+    if (player.side === 'top')
+      (player.y > 0) ? player.y -= player.speed : player.y;
+    else if (player.side === 'right')
+      (player.x < gamezone.getBoundingClientRect().width -
+    player.width) ? player.x += player.speed : player.x;
+    else if (player.side === 'bottom')
+      (player.y < gamezone.getBoundingClientRect().height -
+    player.height) ? player.y += player.speed : player.y;
+    else if (player.side === 'left')
+      (player.x > 0) ? player.x -= player.speed : player.x;
+    player.el.style.top = `${player.y}px`;
+    player.el.style.left = `${player.x}px`;
   }
+}
+
+function moveBullLeftTop(direction, bullet) {
+  (bullet.getBoundingClientRect()[direction] >
+  gamezone.getBoundingClientRect()[direction] + player.bulletsize) ?
+    bullet.style[direction] = `${parseInt(bullet.style[direction]
+      .replace('px', ''), 10) -
+  player.bulletspeed}px` :
+    bullet.parentNode.removeChild(bullet);
 }
 
 function playerbullets() {
   const bullets = document.querySelectorAll('.bullet');
   bullets.forEach(bullet => {
     const direction = bullet.getAttribute('direction');
-    if (direction === 'top') {
-      if (
-        bullet.getBoundingClientRect().top >
-          gamezone.getBoundingClientRect().top
-      ) {
-        bullet.style.top = `${
-          parseInt(bullet.style.top.replace('px', ''), 10) -
-            player.bulletspeed
-        }px`;
-      } else {
-        bullet.parentNode.removeChild(bullet);
-      }
-    } else if (direction === 'bottom') {
-      if (
-        bullet.getBoundingClientRect().bottom <=
-          gamezone.getBoundingClientRect().bottom
-      ) {
-        bullet.style.top = `${
-          parseInt(bullet.style.top.replace('px', ''), 10) +
-            player.bulletspeed
-        }px`;
-      } else {
-        bullet.parentNode.removeChild(bullet);
-      }
-    } else if (direction === 'left') {
-      if (
-        bullet.getBoundingClientRect().left >
-          gamezone.getBoundingClientRect().left
-      ) {
-        bullet.style.left = `${
-          parseInt(bullet.style.left.replace('px', ''), 10) -
-            player.bulletspeed
-        }px`;
-      } else {
-        bullet.parentNode.removeChild(bullet);
-      }
+    (direction === 'top' || direction === 'left') ?
+      moveBullLeftTop(direction, bullet) : null;
+
+    if (direction === 'bottom') {
+      if (bullet.getBoundingClientRect().bottom <
+      gamezone.getBoundingClientRect().bottom - player.bulletsize) {
+        bullet.style.top = `${parseInt(bullet.style.top.replace('px', ''), 10) +
+         player.bulletspeed}px`;
+      } else { bullet.parentNode.removeChild(bullet); }
     } else if (direction === 'right') {
-      if (
-        bullet.getBoundingClientRect().right <
-          gamezone.getBoundingClientRect().right
-      ) {
-        bullet.style.left = `${
-          parseInt(bullet.style.left.replace('px', ''), 10) +
-            player.bulletspeed
-        }px`;
-      } else {
-        bullet.parentNode.removeChild(bullet);
-      }
+      if (bullet.getBoundingClientRect().right <=
+       gamezone.getBoundingClientRect().right - player.bulletsize) {
+        bullet.style.left = `${parseInt(bullet.style.left
+          .replace('px', ''), 10) +
+        player.bulletspeed}px`;
+      } else { bullet.parentNode.removeChild(bullet); }
     }
   });
 }
@@ -527,7 +477,6 @@ function intervalls() {
   ints.run = SetInt(run);
   ints.playerbullets = SetInt(playerbullets);
   ints.enemmove = SetInt(moveenemies);
-  ints.points = SetInt(ShowPoints);
 }
 
 function addbullet(x, y) {
