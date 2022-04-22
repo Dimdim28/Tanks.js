@@ -104,50 +104,35 @@ class Enemy extends SmallTank {
         if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
         this.height / 4) {
           if (this.x + this.width < player.x) {
-            this.side = 'right';
-            this.el.style.backgroundImage = this.right;
+            turn(this, 'right', this.height, this.width);
           } else if (this.x > player.x + player.width) {
-            this.side = 'left';
-            this.el.style.backgroundImage = this.left;
-          } else {
-            const playerHealth = player.hp;
-            player.hp -= this.hp;
-            this.hp -= playerHealth;
-            ShowPoints();
-          }
+            turn(this, 'left', this.height, this.width);
+          } else { collision(player, this); }
         } else {
           this.y -= this.speed;
           this.el.style.top = `${this.y}px`;
         }
       } else {
-        this.side = 'right';
-        this.el.style.backgroundImage = this.right;
+        turn(this, 'right', this.height, this.width);
         return 0;
       }
+
 
     } else if (this.side === 'right') {
       if (this.x < gamezone.getBoundingClientRect().width - this.width) {
         if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
         this.height / 4) {
           if (this.y > player.y + player.height) {
-            this.side = 'top';
-            this.el.style.backgroundImage = this.top;
+            turn(this, 'top', this.width, this.height);
           } else if (this.y + this.height < player.y) {
-            this.side = 'bottom';
-            this.el.style.backgroundImage = this.bottom;
-          } else {
-            const playerHealth = player.hp;
-            player.hp -= this.hp;
-            this.hp -= playerHealth;
-            ShowPoints();
-          }
+            turn(this, 'bottom', this.width, this.height);
+          } else { collision(player, this); }
         } else {
           this.x += this.speed;
           this.el.style.left = `${this.x}px`;
         }
       } else {
-        this.side = 'bottom';
-        this.el.style.backgroundImage = this.bottom;
+        turn(this, 'bottom', this.width, this.height);
         return 0;
       }
 
@@ -156,24 +141,16 @@ class Enemy extends SmallTank {
         if (Math.abs(this.y + this.height / 2 - player.y - player.height / 2) <
          this.height / 4) {
           if (this.x + this.width < player.x) {
-            this.side = 'right';
-            this.el.style.backgroundImage = this.right;
+            turn(this, 'right', this.height, this.width);
           } else if (this.x > player.x + player.width) {
-            this.side = 'left';
-            this.el.style.backgroundImage = this.left;
-          } else {
-            const playerHealth = player.hp;
-            player.hp -= this.hp;
-            this.hp -= playerHealth;
-            ShowPoints();
-          }
+            turn(this, 'left', this.height, this.width);
+          } else { collision(player, this); }
         } else {
           this.y += this.speed;
           this.el.style.top = `${this.y}px`;
         }
       } else {
-        this.side = 'left';
-        this.el.style.backgroundImage = this.left;
+        turn(this, 'left', this.height, this.width);
         return 0;
       }
 
@@ -183,25 +160,16 @@ class Enemy extends SmallTank {
         if (Math.abs(this.x + this.width / 2 - player.x - player.width / 2) <
         this.height / 4) {
           if (this.y > player.y + player.height) {
-            this.side = 'top';
-            this.el.style.backgroundImage = this.top;
+            turn(this, 'top', this.width, this.height);
           } else if (this.y + this.height < player.y) {
-            this.side = 'bottom';
-            this.el.style.backgroundImage = this.bottom;
-          } else {
-            const playerHealth = player.hp;
-            player.hp -= this.hp;
-            this.hp -= playerHealth;
-            ShowPoints();
-          }
+            turn(this, 'bottom', this.width, this.height);
+          } else { collision(player, this); }
         } else {
           this.x -= this.speed;
           this.el.style.left = `${this.x}px`;
         }
-
       } else {
-        this.side = 'top';
-        this.el.style.backgroundImage = this.top;
+        turn(this, 'top', this.width, this.height);
         return 0;
       }
     }
@@ -365,14 +333,14 @@ function init() {
   hp.textContent = `${player.hp}`;
 }
 
-function turn(side, width, height) {
-  player.run = true;
-  player.side = side;
-  player.el.style.backgroundImage = player[side];
-  player.height = height;
-  player.width = width;
-  player.el.style.height = `${player.height}px`;
-  player.el.style.width = `${player.width}px`;
+function turn(tank, side, width, height) {
+  tank.run = true;
+  tank.side = side;
+  tank.el.style.backgroundImage = tank[side];
+  tank.height = height;
+  tank.width = width;
+  tank.el.style.height = `${tank.height}px`;
+  tank.el.style.width = `${tank.width}px`;
 }
 
 function controllers() {
@@ -380,13 +348,13 @@ function controllers() {
   const HEIGHT = player.height;
   document.addEventListener('keydown', e => {
     if (e.code === 'KeyW') {
-      turn('top', WIDTH, HEIGHT);
+      turn(player, 'top', WIDTH, HEIGHT);
     } else if (e.code === 'KeyD') {
-      turn('right', HEIGHT, WIDTH);
+      turn(player, 'right', HEIGHT, WIDTH);
     } else if (e.code === 'KeyS') {
-      turn('bottom', WIDTH, HEIGHT);
+      turn(player, 'bottom', WIDTH, HEIGHT);
     } else if (e.code === 'KeyA') {
-      turn('left', HEIGHT, WIDTH);
+      turn(player, 'left', HEIGHT, WIDTH);
     } else if (e.code === 'ShiftLeft') {
       if (player.side === 'top') {
         addbullet(player.width / 2 -
@@ -416,6 +384,12 @@ function SetInt(func) {
   }, fps);
 }
 
+function collision(player, enemy) {
+  const playerHealth = player.hp;
+  player.hp -= enemy.hp;
+  enemy.hp -= playerHealth;
+  ShowPoints();
+}
 
 
 function run() {
