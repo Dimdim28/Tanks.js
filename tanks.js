@@ -24,6 +24,7 @@ let player = {
   run: false,
   side: '',
   fire: true,
+  reload: false,
   points: 0,
 };
 
@@ -346,13 +347,20 @@ function controllers() {
       turn(player, 'left', HEIGHT, WIDTH);
     } else if (e.code === 'ShiftLeft') {
       player.fire = true;
-      Shooting(player);
+      if (!player.reload) {
+        player.reload = true;
+        Shooting();
+      }
     }
   });
 
   document.addEventListener('keyup', e => {
     const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
-    if (codes.includes(e.code)) player.run = false;
+    if (codes.includes(e.code)) {
+      player.run = false;
+    } else if (e.code === 'ShiftLeft') {
+      player.fire = false;
+    }
   });
 }
 
@@ -397,14 +405,16 @@ function oneBullet(el) {
   }
 }
 
-function Shooting(el) {
-  if (el.fire === true) {
-    oneBullet(el);
-    setTimeout(() => {
-      if (el.fire === false) return;
-      Shooting(el);
-    }, el.bullettime);
-  }
+function Shooting() {
+  oneBullet(player);
+  const bulletsInt = setInterval(() => {
+    if (player.fire === true) {
+      oneBullet(player);
+    } else {
+      player.reload = false;
+      clearInterval(bulletsInt);
+    }
+  }, player.bullettime);
 }
 
 function run() {
@@ -458,15 +468,11 @@ function addbullet(tank, x, y) {
   let vertical = 'top';
   direction === 'right' ? horisontal = 'right' : horisontal = 'left';
   direction === 'bottom' ? vertical = 'bottom' : vertical = 'top';
-  if (tank.fire === true) {
-    const BULLET_EL = `<div class="bullet" direction = ${direction} 
-    style = "${horisontal}: ${x}px;
-    ${vertical}: ${y}px; width:${tank.bulletsize}px; 
-    height:${tank.bulletsize}px"></div>`;
-    gamezone.insertAdjacentHTML('beforeend', BULLET_EL);
-    tank.fire = false;
-    setTimeout(() => (tank.fire = true), tank.bullettime);
-  }
+  const BULLET_EL = `<div class="bullet" direction = ${direction} 
+  style = "${horisontal}: ${x}px;
+  ${vertical}: ${y}px; width:${tank.bulletsize}px; 
+  height:${tank.bulletsize}px"></div>`;
+  gamezone.insertAdjacentHTML('beforeend', BULLET_EL);
 }
 
 function game() {

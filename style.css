@@ -148,6 +148,7 @@ body { /*убирает пробел*/
     background-repeat: repeat;
     width: 100%;
     height: 100%;
+    position: relative;
 }
 .hangar{
     height: 100%;
