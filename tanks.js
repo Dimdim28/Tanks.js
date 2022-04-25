@@ -12,6 +12,8 @@ const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 let k = 0;
 const fps = 1000 / 60;
 
+const setInt = func => setInterval(func, fps);
+
 const ints = {
   run: false,
   bullet: false,
@@ -167,11 +169,7 @@ function controllers() {
   });
 }
 
-function SetInt(func) {
-  setInterval(() => {
-    func();
-  }, fps);
-}
+
 
 function collision(player, enemy) {
   const playerHealth = player.hp;
@@ -266,10 +264,10 @@ function ShowPoints() {
 }
 
 function intervalls() {
-  ints.run = SetInt(run);
-  ints.playerbullets = SetInt(playerbullets);
-  ints.enemmove = SetInt(moveenemies);
-  ints.enemshoot = SetInt(shootEnemies, fps);
+  ints.run = setInt(run);
+  ints.playerbullets = setInt(playerbullets);
+  ints.enemmove = setInt(moveenemies);
+  ints.enemshoot = setInt(shootEnemies, fps);
 }
 
 function addbullet(tank, x, y) {
