@@ -49,7 +49,7 @@ const ENEMY1_INFO_ARRAY = [
   ['name', 'enemy1'],
   ['x', 0],
   ['y', 0],
-  ['side', 'right']
+  ['side', 'right'],
 ];
 const ENEMY1_INFO = new Map(ENEMY1_INFO_ARRAY);
 
@@ -67,7 +67,7 @@ const ENEMY2_INFO_ARRAY = [
   ['x', hangar.getBoundingClientRect().left -
    leftpanel.getBoundingClientRect().width],
   ['y', 0],
-  ['side', 'bottom']
+  ['side', 'bottom'],
 ];
 const ENEMY2_INFO = new Map(ENEMY2_INFO_ARRAY);
 
@@ -85,7 +85,7 @@ const ENEMY3_INFO_ARRAY = [
   ['x', hangar.getBoundingClientRect().left -
   leftpanel.getBoundingClientRect().width],
   ['y', gamezone.getBoundingClientRect().height],
-  ['side', 'left']
+  ['side', 'left'],
 ];
 const ENEMY3_INFO = new Map(ENEMY3_INFO_ARRAY);
 
@@ -102,7 +102,7 @@ const ENEMY4_INFO_ARRAY = [
   ['name', 'enemy4'],
   ['x', 0],
   ['y', gamezone.getBoundingClientRect().height],
-  ['side', 'top']
+  ['side', 'top'],
 ];
 const ENEMY4_INFO = new Map(ENEMY4_INFO_ARRAY);
 
@@ -141,16 +141,16 @@ function turn(tank, side, width, height) {
 function controllers() {
   const WIDTH = player.width;
   const HEIGHT = player.height;
+  const  PARAMETRS = [
+    ['KeyW', ['top', WIDTH, HEIGHT]],
+    ['KeyD', ['right', HEIGHT, WIDTH]],
+    ['KeyS', ['bottom', WIDTH, HEIGHT]],
+    ['KeyA', ['left', HEIGHT, WIDTH]],
+  ];
+  const MAP = new Map(PARAMETRS);
   document.addEventListener('keydown', e => {
-    if (e.code === 'KeyW') {
-      turn(player, 'top', WIDTH, HEIGHT);
-    } else if (e.code === 'KeyD') {
-      turn(player, 'right', HEIGHT, WIDTH);
-    } else if (e.code === 'KeyS') {
-      turn(player, 'bottom', WIDTH, HEIGHT);
-    } else if (e.code === 'KeyA') {
-      turn(player, 'left', HEIGHT, WIDTH);
-    } else if (e.code === 'ShiftLeft') {
+    const VALUE = MAP.get(e.code);
+    if (VALUE) { turn(player, ...VALUE); } else if (e.code === 'ShiftLeft') {
       player.fire = true;
       if (!player.reload) {
         player.reload = true;
@@ -263,12 +263,12 @@ function intervalls() {
 }
 
 function addbullet(tank, x, y) {
-  const direction = tank.side;
-  const identity = tank.name ? tank.name : 'player';
-  const HORISONTAL = direction === 'right' ? 'right' :  'left';
-  const VERTICAL = direction === 'bottom' ?  'bottom' :  'top';
-  const BULLET_EL = `<div class="bullet" direction = ${direction}
-   identity = ${identity}
+  const DIRECTION = tank.side;
+  const IDENTITY = tank.name ? tank.name : 'player';
+  const HORISONTAL = DIRECTION === 'right' ? 'right' :  'left';
+  const VERTICAL = DIRECTION === 'bottom' ?  'bottom' :  'top';
+  const BULLET_EL = `<div class="bullet" direction = ${DIRECTION}
+   identity = ${IDENTITY}
     style = "${HORISONTAL}: ${x}px; ${VERTICAL}: ${y}px; 
     width:${tank.bulletsize}px; height:${tank.bulletsize}px"></div>`;
   gamezone.insertAdjacentHTML('beforeend', BULLET_EL);

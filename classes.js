@@ -9,7 +9,7 @@ class BigTank {
       this[key] = `url(sprites/${collection.get('image')}-${key}.png)`;
     }
   }
-  
+
   active() {
     if (k === 0) {
       player = Object.assign(player, this);
