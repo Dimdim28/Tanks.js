@@ -241,16 +241,15 @@ function moveBull(tank, direction, bullet, sign) {
 
 function playerbullets() {
   const bullets = document.querySelectorAll('.bullet');
-  bullets.forEach(bullet => {
+  for (const bullet of bullets) {
     const identity = bullet.getAttribute('identity');
     const tank = identity === 'player' ?
       player :
       ENEMIES[parseInt(identity.slice(-1), 10) - 1];
     const direction = bullet.getAttribute('direction');
-    (direction === 'top' || direction === 'left') ?
-      moveBull(tank, direction, bullet, 1) :
-      moveBull(tank, direction, bullet, -1);
-  });
+    const sign = (direction === 'top' || direction === 'left') ? 1 : -1;
+    moveBull(tank, direction, bullet, sign);
+  }
 }
 
 function ShowPoints() {
