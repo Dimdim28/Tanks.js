@@ -9,6 +9,7 @@ class BigTank {
       this[key] = `url(sprites/${collection.get('image')}-${key}.png)`;
     }
   }
+  
   active() {
     if (k === 0) {
       player = Object.assign(player, this);
@@ -16,6 +17,7 @@ class BigTank {
       console.log(player);
     }
   }
+
   die() {
     this.el.parentNode.removeChild(this.el);
   }
@@ -68,8 +70,8 @@ class Enemy extends SmallTank {
     gamezone.append(div);
     this.find();
     this.back();
-
   }
+
   move() {
     const DifferenceWith = Math.abs(this.x + this.width / 2 -
        player.x - player.width / 2);
@@ -135,6 +137,7 @@ class Enemy extends SmallTank {
       }
     }
   }
+
   shoot() {
     if (!this.reload) {
       this.reload = true;

@@ -265,17 +265,14 @@ function intervalls() {
 function addbullet(tank, x, y) {
   const direction = tank.side;
   const identity = tank.name ? tank.name : 'player';
-  let horisontal = 'left';
-  let vertical = 'top';
-  direction === 'right' ? horisontal = 'right' : horisontal = 'left';
-  direction === 'bottom' ? vertical = 'bottom' : vertical = 'top';
+  const HORISONTAL = direction === 'right' ? 'right' :  'left';
+  const VERTICAL = direction === 'bottom' ?  'bottom' :  'top';
   const BULLET_EL = `<div class="bullet" direction = ${direction}
    identity = ${identity}
-    style = "${horisontal}: ${x}px; ${vertical}: ${y}px; 
+    style = "${HORISONTAL}: ${x}px; ${VERTICAL}: ${y}px; 
     width:${tank.bulletsize}px; height:${tank.bulletsize}px"></div>`;
   gamezone.insertAdjacentHTML('beforeend', BULLET_EL);
 }
-
 
 function game() {
   init();
@@ -284,7 +281,6 @@ function game() {
   intervalls();
   k++;
 }
-
 
 function spawnenemies() {
   for (const enemy of ENEMIES) {
