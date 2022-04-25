@@ -219,20 +219,15 @@ function Shooting() {
 }
 
 function run() {
-  if (player.run) {
-    if (player.side === 'top')
-      (player.y > 0) ? player.y -= player.speed : player.y;
-    else if (player.side === 'right')
-      (player.x < gamezone.getBoundingClientRect().width -
-    player.width) ? player.x += player.speed : player.x;
-    else if (player.side === 'bottom')
-      (player.y < gamezone.getBoundingClientRect().height -
-    player.height) ? player.y += player.speed : player.y;
-    else if (player.side === 'left')
-      (player.x > 0) ? player.x -= player.speed : player.x;
-    player.el.style.top = `${player.y}px`;
-    player.el.style.left = `${player.x}px`;
-  }
+  if (!player.run) return;
+  const { side, x, y, speed, width, height } = player;
+  const rect = gamezone.getBoundingClientRect();
+  if (side === 'top' && y > 0) player.y -= speed;
+  else if (side === 'right' && x < rect.width - width) player.x += speed;
+  else if (side === 'bottom' && y < rect.height - height) player.y += speed;
+  else if (side === 'left' && x > 0) player.x -= speed;
+  player.el.style.top = `${y}px`;
+  player.el.style.left = `${x}px`;
 }
 
 function moveBull(tank, direction, bullet, sign) {
