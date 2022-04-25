@@ -154,7 +154,7 @@ function controllers() {
       player.fire = true;
       if (!player.reload) {
         player.reload = true;
-        Shooting();
+        shooting();
       }
     }
   });
@@ -169,16 +169,14 @@ function controllers() {
   });
 }
 
-
-
 function collision(player, enemy) {
   const playerHealth = player.hp;
   player.hp -= enemy.hp;
   enemy.hp -= playerHealth;
-  ShowPoints();
+  showPoints();
 }
 
-function TurnToCollision(element, side1, side2, condition1, condition2) {
+function turnToCollision(element, side1, side2, condition1, condition2) {
   if (condition1) {
     turn(element, side1, element.height, element.width);
   } else if (condition2) {
@@ -206,7 +204,7 @@ function oneBullet(el) {
   }
 }
 
-function Shooting() {
+function shooting() {
   oneBullet(player);
   const bulletsInt = setInterval(() => {
     if (player.fire === true) {
@@ -252,7 +250,7 @@ function playerbullets() {
   }
 }
 
-function ShowPoints() {
+function showPoints() {
   points.textContent = `${player.points}`;
   hp.textContent = `${player.hp}`;
 }

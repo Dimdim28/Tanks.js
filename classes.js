@@ -79,7 +79,7 @@ class Enemy extends SmallTank {
     if (this.side === 'top') {
       if (this.y > 0) {
         if (DifferenceHeight < this.height / 4) {
-          TurnToCollision(this, 'right', 'left', this.x + this.width <
+          turnToCollision(this, 'right', 'left', this.x + this.width <
           player.x, this.x > player.x + player.width);
         } else {
           this.y -= this.speed;
@@ -94,7 +94,7 @@ class Enemy extends SmallTank {
     } else if (this.side === 'right') {
       if (this.x < gamezone.getBoundingClientRect().width - this.width) {
         if (DifferenceWith < this.width / 4) {
-          TurnToCollision(this, 'top', 'bottom', this.y >
+          turnToCollision(this, 'top', 'bottom', this.y >
             player.y + player.height, this.y + this.height < player.y);
         } else {
           this.x += this.speed;
@@ -108,7 +108,7 @@ class Enemy extends SmallTank {
     } else if (this.side === 'bottom') {
       if (this.y < gamezone.getBoundingClientRect().height - this.height) {
         if (DifferenceHeight < this.height / 4) {
-          TurnToCollision(this, 'right', 'left', this.x + this.width <
+          turnToCollision(this, 'right', 'left', this.x + this.width <
             player.x, this.x > player.x + player.width);
         } else {
           this.y += this.speed;
@@ -123,7 +123,7 @@ class Enemy extends SmallTank {
     } else if (this.side === 'left') {
       if (this.x > 0) {
         if (DifferenceWith < this.width / 4) {
-          TurnToCollision(this, 'top', 'bottom', this.y >
+          turnToCollision(this, 'top', 'bottom', this.y >
             player.y + player.height, this.y + this.height < player.y);
         } else {
           this.x -= this.speed;
