@@ -189,19 +189,17 @@ function turnToCollision(element, side1, side2, condition1, condition2) {
 function oneBullet(el) {
   const widthZone = gamezone.getBoundingClientRect().width;
   const heightZone = gamezone.getBoundingClientRect().height;
-  if (el.side === 'top') {
-    addbullet(el, el.x + el.width / 2 -
-   el.bulletsize / 2, el.y - el.bulletsize);
-  } else if (el.side === 'right') {
-    addbullet(el, widthZone -
-    el.x - el.width, el.y + el.height / 2 - el.bulletsize / 2);
-  } else if (el.side === 'bottom') {
-    addbullet(el, el.x + el.width / 2 -
-  el.bulletsize / 2, heightZone - el.y - el.height - el.bulletsize / 2);
-  } else if (el.side === 'left') {
-    addbullet(el, el.x -
-    el.bulletsize, el.y + el.height / 2 - el.bulletsize / 2);
-  }
+  const MAPARRAY = [
+    ['top', [el.x + el.width / 2 -
+    el.bulletsize / 2, el.y - el.bulletsize]],
+    ['right', [ widthZone - el.x -
+      el.width, el.y + el.height / 2 - el.bulletsize / 2]],
+    ['bottom', [ el.x + el.width / 2 -
+    el.bulletsize / 2, heightZone - el.y - el.height - el.bulletsize / 2]],
+    ['left', [el.x - el.bulletsize, el.y +
+      el.height / 2 - el.bulletsize / 2]], ];
+  const MAP = new Map(MAPARRAY);
+  addbullet(el, ...MAP.get(el.side));
 }
 
 function shooting() {

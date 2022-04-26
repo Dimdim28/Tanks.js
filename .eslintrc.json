@@ -10,6 +10,7 @@
     },
     "rules": {
       "indent": ["error", 2],
+      "arrow-parens": [true, "ban-single-arg-parens"],
       "linebreak-style": ["error", "unix"],
       "quotes": [
         "error",
