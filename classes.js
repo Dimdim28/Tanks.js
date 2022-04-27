@@ -72,69 +72,64 @@ class Enemy extends SmallTank {
     this.back();
   }
 
+  moveHeight(height, speed) {
+    const DifferenceHeight = Math.abs(
+      this.y + this.height / 2 - player.y - player.height / 2
+    );
+
+    if (this.y > height) {
+      if (DifferenceHeight < this.height / 4) {
+        turnToCollision(this,
+          'right',
+          'left',
+          this.x + this.width < player.x,
+          this.x > player.x + player.width
+        );
+      } else {
+        this.y += speed;
+        this.el.style.top = `${this.y}px`;
+      }
+    } else {
+      turn(this, 'right', this.height, this.width);
+      return 0;
+    }
+  }
+
+  moveWidth(width, speed) {
+    const DifferenceWith = Math.abs(
+      this.x + this.width / 2 - player.x - player.width / 2
+    );
+
+    if (this.x > width) {
+      if (DifferenceWith < this.width / 4) {
+        turnToCollision(
+          this,
+          'top',
+          'bottom',
+          this.y > player.y + player.height,
+          this.y + this.height < player.y
+        );
+      } else {
+        this.x += speed;
+        this.el.style.left = `${this.x}px`;
+      }
+    } else {
+      turn(this, 'bottom', this.width, this.height);
+      return 0;
+    }
+  }
+
   move() {
-    const DifferenceWith = Math.abs(this.x + this.width / 2 -
-       player.x - player.width / 2);
-    const DifferenceHeight = Math.abs(this.y + this.height / 2 -
-       player.y - player.height / 2);
-
     if (this.side === 'top') {
-      if (this.y > 0) {
-        if (DifferenceHeight < this.height / 4) {
-          turnToCollision(this, 'right', 'left', this.x + this.width <
-          player.x, this.x > player.x + player.width);
-        } else {
-          this.y -= this.speed;
-          this.el.style.top = `${this.y}px`;
-        }
-      } else {
-        turn(this, 'right', this.height, this.width);
-        return 0;
-      }
-
-
+      this.moveHeight(0, -1*(this.speed));
     } else if (this.side === 'right') {
-      if (this.x < gamezone.getBoundingClientRect().width - this.width) {
-        if (DifferenceWith < this.width / 4) {
-          turnToCollision(this, 'top', 'bottom', this.y >
-            player.y + player.height, this.y + this.height < player.y);
-        } else {
-          this.x += this.speed;
-          this.el.style.left = `${this.x}px`;
-        }
-      } else {
-        turn(this, 'bottom', this.width, this.height);
-        return 0;
-      }
-
+      const widthUsable = -1*(gamezone.getBoundingClientRect().width - this.width);
+      this.moveWidth(widthUsable, this.speed);
     } else if (this.side === 'bottom') {
-      if (this.y < gamezone.getBoundingClientRect().height - this.height) {
-        if (DifferenceHeight < this.height / 4) {
-          turnToCollision(this, 'right', 'left', this.x + this.width <
-            player.x, this.x > player.x + player.width);
-        } else {
-          this.y += this.speed;
-          this.el.style.top = `${this.y}px`;
-        }
-      } else {
-        turn(this, 'left', this.height, this.width);
-        return 0;
-      }
-
-
+      const heightUsable = -1*(gamezone.getBoundingClientRect().height - this.height);
+      this.moveHeight(heightUsable, this.speed);
     } else if (this.side === 'left') {
-      if (this.x > 0) {
-        if (DifferenceWith < this.width / 4) {
-          turnToCollision(this, 'top', 'bottom', this.y >
-            player.y + player.height, this.y + this.height < player.y);
-        } else {
-          this.x -= this.speed;
-          this.el.style.left = `${this.x}px`;
-        }
-      } else {
-        turn(this, 'top', this.width, this.height);
-        return 0;
-      }
+      this.moveWidth(0, -1*(this.speed));
     }
   }
 
