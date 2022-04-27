@@ -30,11 +30,13 @@ let player = {
   points: 0,
 };
 
-const M4 = new SmallTank(M4_INFO);
-const AMX = new SmallTank(AMX_INFO);
-const KV2 = new SmallTank(KV2_INFO);
-const BTR = new SmallTank(BTR_INFO);
-const WAFEN = new BigTank(WAFEN_INFO);
+const PLAYER_TANKS = {
+  M4: new SmallTank(M4_INFO),
+  AMX: new SmallTank(AMX_INFO),
+  KV2: new SmallTank(KV2_INFO),
+  BTR: new SmallTank(BTR_INFO),
+  WAFEN: new BigTank(WAFEN_INFO),
+};
 
 const ENEMY1_INFO_ARRAY = [
   ['speed', 10],
