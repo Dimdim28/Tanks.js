@@ -72,12 +72,12 @@ class Enemy extends SmallTank {
     this.back();
   }
 
-  moveHeight(height, speed) {
+  borderHeight(height, speed, side, sign) {
     const DifferenceHeight = Math.abs(
       this.y + this.height / 2 - player.y - player.height / 2
     );
 
-    if (this.y > height) {
+    if (sign * this.y > height) {
       if (DifferenceHeight < this.height / 4) {
         turnToCollision(this,
           'right',
@@ -86,21 +86,21 @@ class Enemy extends SmallTank {
           this.x > player.x + player.width
         );
       } else {
-        this.y += speed;
+        this.y -= sign*speed;
         this.el.style.top = `${this.y}px`;
       }
     } else {
-      turn(this, 'right', this.height, this.width);
+      turn(this, side, this.height, this.width);
       return 0;
     }
   }
 
-  moveWidth(width, speed) {
+  borderWidth(width, speed, side, sign) {
     const DifferenceWith = Math.abs(
       this.x + this.width / 2 - player.x - player.width / 2
     );
 
-    if (this.x > width) {
+    if (sign*this.x > width) {
       if (DifferenceWith < this.width / 4) {
         turnToCollision(
           this,
@@ -110,26 +110,26 @@ class Enemy extends SmallTank {
           this.y + this.height < player.y
         );
       } else {
-        this.x += speed;
+        this.x -= sign*speed;
         this.el.style.left = `${this.x}px`;
       }
     } else {
-      turn(this, 'bottom', this.width, this.height);
+      turn(this, side, this.width, this.height);
       return 0;
     }
   }
 
   move() {
     if (this.side === 'top') {
-      this.moveHeight(0, -1*(this.speed));
+      this.borderHeight(0, this.speed, 'right', 1);
     } else if (this.side === 'right') {
-      const widthUsable = -1*(gamezone.getBoundingClientRect().width - this.width);
-      this.moveWidth(widthUsable, this.speed);
+      const widthUsable = -(gamezone.getBoundingClientRect().width - this.width);
+      this.borderWidth(widthUsable, this.speed, 'bottom', -1);
     } else if (this.side === 'bottom') {
-      const heightUsable = -1*(gamezone.getBoundingClientRect().height - this.height);
-      this.moveHeight(heightUsable, this.speed);
+      const heightUsable = -(gamezone.getBoundingClientRect().height - this.height);
+      this.borderHeight(heightUsable, this.speed, 'left', -1);
     } else if (this.side === 'left') {
-      this.moveWidth(0, -1*(this.speed));
+      this.borderWidth(0, this.speed, 'top', 1);
     }
   }
 
