@@ -32,12 +32,12 @@ const PLAYER_TANKS = {
   WAFEN: new BigTank(WAFEN_INFO),
 };
 
-const enemy1 = new Enemy(ENEMY1_INFO);
-const enemy2 = new Enemy(ENEMY2_INFO);
-const enemy3 = new Enemy(ENEMY3_INFO);
-const enemy4 = new Enemy(ENEMY4_INFO);
-
-const ENEMIES = [enemy1, enemy2, enemy3, enemy4];
+const ENEMIES = {
+  enemy1: new Enemy(ENEMY1_INFO),
+  enemy2: new Enemy(ENEMY2_INFO),
+  enemy3: new Enemy(ENEMY3_INFO),
+  enemy4: new Enemy(ENEMY4_INFO),
+};
 
 function init() {
   const div = document.createElement('div');
@@ -167,7 +167,7 @@ function playerbullets() {
     const identity = bullet.getAttribute('identity');
     const tank = identity === 'player' ?
       player :
-      ENEMIES[parseInt(identity.slice(-1), 10) - 1];
+      ENEMIES[identity];
     const direction = bullet.getAttribute('direction');
     const sign = (direction === 'top' || direction === 'left') ? 1 : -1;
     moveBull(tank, direction, bullet, sign);
@@ -207,23 +207,26 @@ function game() {
 }
 
 function spawnenemies() {
-  for (const enemy of ENEMIES) {
-    enemy.spawn();
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
+  for (const key of ENEMIES_KEYS) {
+    ENEMIES[key].spawn();
   }
 }
 
 function moveenemies() {
-  for (const enemy of ENEMIES) {
-    enemy.move();
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
+  for (const key of ENEMIES_KEYS) {
+    ENEMIES[key].move();
   }
 }
 
 function shootEnemies() {
-  for (const enemy of ENEMIES) {
-    enemy.shoot();
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
+  for (const key of ENEMIES_KEYS) {
+    ENEMIES[key].shoot();
   }
 }
 
 setTimeout(() => {
-  enemy1.die();
+  ENEMIES.enemy1.die();
 }, 2000);
