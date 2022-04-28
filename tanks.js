@@ -228,5 +228,5 @@ function shootEnemies() {
 }
 
 setTimeout(() => {
- // ENEMIES.enemy1.die();
+  // ENEMIES.enemy1.die();
 }, 2000);

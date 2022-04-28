@@ -33,6 +33,13 @@ class SmallTank extends BigTank {
   }
 }
 
+const SIDES = {
+  'top': 'right',
+  'right': 'bottom',
+  'bottom': 'left',
+  'left': 'top',
+};
+
 class Enemy extends SmallTank {
   constructor(collection = new Map()) {
     super(collection);
@@ -58,8 +65,8 @@ class Enemy extends SmallTank {
     div.style.display = 'block';
     if (this.name === 'enemy2' || this.name === 'enemy3') {
       this.x -= this.width;
-    } 
-     if (this.name === 'enemy3' || this.name === 'enemy4') {
+    }
+    if (this.name === 'enemy3' || this.name === 'enemy4') {
       this.y -= this.height;
     }
     div.style.left = `${this.x}px`;
@@ -71,49 +78,42 @@ class Enemy extends SmallTank {
     this.find();
     this.back();
   }
-  
-  difference(size, side){
+
+  difference(size, side) {
     return Math.abs(this[side] + this[size] / 2 - player[side] - player[size] / 2);
   }
-  
-  border(usableSize, speed, size, sign, side){
+
+
+  border(usableSize, speed, size, sign, side) {
     const DIFFERENCE = this.difference(size, side);
-    if(sign * this[side] > usableSize){
-if(DIFFERENCE  < this[size]/4){
-  if(side ==='y'){
-    turnToCollision(this,
-      'right',
-      'left',
-      this.x + this.width < player.x,
-      this.x > player.x + player.width
-    );
-  }else if(side === 'x'){
-    turnToCollision(
-      this,
-      'top',
-      'bottom',
-      this.y > player.y + player.height,
-      this.y + this.height < player.y
-    );
-  }
-}else{
-  this[side] -= sign *speed;
-  if(side === 'y'){
-    this.el.style.top = `${this.y}px`;
-  }else{
-    this.el.style.left = `${this.x}px`;
-  }
-}
-    }else{
-      if(this.side ==='top'){
-        turn(this, 'right', this.height, this.width);
-      }else if(this.side === 'right'){
-        turn(this, 'bottom', this.width, this.height);
-      }else if(this.side === 'bottom'){
-        turn(this, 'left', this.width, this.height);
-      }else if(this.side === 'left'){
-        turn(this, 'top', this.width, this.height);
+    if (sign * this[side] > usableSize) {
+      if (DIFFERENCE  < this[size] / 4) {
+        if (side === 'y') {
+          turnToCollision(this,
+            'right',
+            'left',
+            this.x + this.width < player.x,
+            this.x > player.x + player.width
+          );
+        } else if (side === 'x') {
+          turnToCollision(
+            this,
+            'top',
+            'bottom',
+            this.y > player.y + player.height,
+            this.y + this.height < player.y
+          );
+        }
+      } else {
+        this[side] -= sign * speed;
+        if (side === 'y') {
+          this.el.style.top = `${this.y}px`;
+        } else {
+          this.el.style.left = `${this.x}px`;
+        }
       }
+    } else {
+      turn(this, SIDES[this.side], this.width, this.height);
       return 0;
     }
   }
