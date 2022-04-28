@@ -1,3 +1,5 @@
+'use strict';
+
 class BigTank {
   constructor(collection = new Map()) {
     const KEYS = collection.keys();
@@ -70,12 +72,12 @@ class Enemy extends SmallTank {
     this.back();
   }
   
+  difference(size, side){
+    return Math.abs(this[side] + this[size] / 2 - player[side] - player[size] / 2);
+  }
 
   borderHeight(height, speed, side, sign) {
-    const DifferenceHeight = Math.abs(
-      this.y + this.height / 2 - player.y - player.height / 2
-    );
-
+    const DifferenceHeight = this.difference('height', 'y');
     if (sign * this.y > height) {
       if (DifferenceHeight < this.height / 4) {
         turnToCollision(this,
@@ -95,11 +97,8 @@ class Enemy extends SmallTank {
   }
 
   borderWidth(width, speed, side, sign) {
-    const DifferenceWith = Math.abs(
-      this.x + this.width / 2 - player.x - player.width / 2
-    );
-
-    if (sign*this.x > width) {
+    const DifferenceWith = this.difference('width', 'x');
+    if (sign * this.x > width) {
       if (DifferenceWith < this.width / 4) {
         turnToCollision(
           this,
@@ -109,7 +108,7 @@ class Enemy extends SmallTank {
           this.y + this.height < player.y
         );
       } else {
-        this.x -= sign*speed;
+        this.x -= sign * speed;
         this.el.style.left = `${this.x}px`;
       }
     } else {
