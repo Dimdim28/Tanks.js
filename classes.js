@@ -54,12 +54,10 @@ class Enemy extends SmallTank {
     const div = document.createElement('div');
     div.className = `${this.name}`;
     div.style.display = 'block';
-    if (this.name === 'enemy2') {
+    if (this.name === 'enemy2' || this.name === 'enemy3') {
       this.x -= this.width;
-    } else if (this.name === 'enemy3') {
-      this.x -= this.width;
-      this.y -= this.height;
-    } else if (this.name === 'enemy4') {
+    } 
+     if (this.name === 'enemy3' || this.name === 'enemy4') {
       this.y -= this.height;
     }
     div.style.left = `${this.x}px`;
@@ -71,6 +69,7 @@ class Enemy extends SmallTank {
     this.find();
     this.back();
   }
+  
 
   borderHeight(height, speed, side, sign) {
     const DifferenceHeight = Math.abs(
