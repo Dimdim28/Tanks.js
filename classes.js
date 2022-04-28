@@ -75,62 +75,62 @@ class Enemy extends SmallTank {
   difference(size, side){
     return Math.abs(this[side] + this[size] / 2 - player[side] - player[size] / 2);
   }
-
-  borderHeight(height, speed, side, sign) {
-    const DifferenceHeight = this.difference('height', 'y');
-    if (sign * this.y > height) {
-      if (DifferenceHeight < this.height / 4) {
-        turnToCollision(this,
-          'right',
-          'left',
-          this.x + this.width < player.x,
-          this.x > player.x + player.width
-        );
-      } else {
-        this.y -= sign*speed;
-        this.el.style.top = `${this.y}px`;
-      }
-    } else {
-      turn(this, side, this.height, this.width);
-      return 0;
-    }
+  
+  border(usableSize, speed, size, sign, side){
+    const DIFFERENCE = this.difference(size, side);
+    if(sign * this[side] > usableSize){
+if(DIFFERENCE  < this[size]/4){
+  if(side ==='y'){
+    turnToCollision(this,
+      'right',
+      'left',
+      this.x + this.width < player.x,
+      this.x > player.x + player.width
+    );
+  }else if(side === 'x'){
+    turnToCollision(
+      this,
+      'top',
+      'bottom',
+      this.y > player.y + player.height,
+      this.y + this.height < player.y
+    );
   }
-
-  borderWidth(width, speed, side, sign) {
-    const DifferenceWith = this.difference('width', 'x');
-    if (sign * this.x > width) {
-      if (DifferenceWith < this.width / 4) {
-        turnToCollision(
-          this,
-          'top',
-          'bottom',
-          this.y > player.y + player.height,
-          this.y + this.height < player.y
-        );
-      } else {
-        this.x -= sign * speed;
-        this.el.style.left = `${this.x}px`;
+}else{
+  this[side] -= sign *speed;
+  if(side === 'y'){
+    this.el.style.top = `${this.y}px`;
+  }else{
+    this.el.style.left = `${this.x}px`;
+  }
+}
+    }else{
+      if(this.side ==='top'){
+        turn(this, 'right', this.height, this.width);
+      }else if(this.side === 'right'){
+        turn(this, 'bottom', this.width, this.height);
+      }else if(this.side === 'bottom'){
+        turn(this, 'left', this.width, this.height);
+      }else if(this.side === 'left'){
+        turn(this, 'top', this.width, this.height);
       }
-    } else {
-      turn(this, side, this.width, this.height);
       return 0;
     }
   }
 
   move() {
     if (this.side === 'top') {
-      this.borderHeight(0, this.speed, 'right', 1);
+      this.border(0, this.speed, 'height', 1, 'y');
     } else if (this.side === 'right') {
       const widthUsable = -(gamezone.getBoundingClientRect().width - this.width);
-      this.borderWidth(widthUsable, this.speed, 'bottom', -1);
+      this.border(widthUsable, this.speed, 'width', -1, 'x');
     } else if (this.side === 'bottom') {
       const heightUsable = -(gamezone.getBoundingClientRect().height - this.height);
-      this.borderHeight(heightUsable, this.speed, 'left', -1);
+      this.border(heightUsable, this.speed, 'height', -1, 'y');
     } else if (this.side === 'left') {
-      this.borderWidth(0, this.speed, 'top', 1);
+      this.border(0, this.speed, 'width', 1, 'x');
     }
   }
-
   shoot() {
     if (!this.reload) {
       this.reload = true;
