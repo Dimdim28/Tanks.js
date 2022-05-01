@@ -83,27 +83,16 @@ class Enemy extends SmallTank {
     return Math.abs(this[side] + this[size] / 2 - player[side] - player[size] / 2);
   }
 
-
   border(usableSize, speed, size, sign, side) {
+    const OBJ = {
+      'y': [this, 'right', 'left', this.x + this.width < player.x, this.x > player.x + player.width],
+      'x': [this, 'top', 'bottom', this.y > player.y + player.height, this.y + this.height < player.y],
+    };
+
     const DIFFERENCE = this.difference(size, side);
     if (sign * this[side] > usableSize) {
       if (DIFFERENCE  < this[size] / 4) {
-        if (side === 'y') {
-          turnToCollision(this,
-            'right',
-            'left',
-            this.x + this.width < player.x,
-            this.x > player.x + player.width
-          );
-        } else if (side === 'x') {
-          turnToCollision(
-            this,
-            'top',
-            'bottom',
-            this.y > player.y + player.height,
-            this.y + this.height < player.y
-          );
-        }
+        turnToCollision(...OBJ[side]);
       } else {
         this[side] -= sign * speed;
         if (side === 'y') {
@@ -119,15 +108,15 @@ class Enemy extends SmallTank {
   }
 
   move() {
-    const widthUsable = -(gamezone.getBoundingClientRect().width - this.width);
-    const heightUsable = -(gamezone.getBoundingClientRect().height - this.height);
-   const OBJ = {
-     'top': [0, this.speed, 'height', 1, 'y'],
-     'right': [widthUsable, this.speed, 'width', -1, 'x'],
-     'bottom': [heightUsable, this.speed, 'height', -1, 'y'],
-     'left': [0, this.speed, 'width', 1, 'x'],
-   };
-      this.border(...OBJ[this.side]);
+    const widthUsable = this.width - gamezone.getBoundingClientRect().width;
+    const heightUsable = this.height - gamezone.getBoundingClientRect().height;
+    const OBJ = {
+      'top': [0, this.speed, 'height', 1, 'y'],
+      'right': [widthUsable, this.speed, 'width', -1, 'x'],
+      'bottom': [heightUsable, this.speed, 'height', -1, 'y'],
+      'left': [0, this.speed, 'width', 1, 'x'],
+    };
+    this.border(...OBJ[this.side]);
   }
   shoot() {
     if (!this.reload) {
