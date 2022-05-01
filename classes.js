@@ -119,17 +119,15 @@ class Enemy extends SmallTank {
   }
 
   move() {
-    if (this.side === 'top') {
-      this.border(0, this.speed, 'height', 1, 'y');
-    } else if (this.side === 'right') {
-      const widthUsable = -(gamezone.getBoundingClientRect().width - this.width);
-      this.border(widthUsable, this.speed, 'width', -1, 'x');
-    } else if (this.side === 'bottom') {
-      const heightUsable = -(gamezone.getBoundingClientRect().height - this.height);
-      this.border(heightUsable, this.speed, 'height', -1, 'y');
-    } else if (this.side === 'left') {
-      this.border(0, this.speed, 'width', 1, 'x');
-    }
+    const widthUsable = -(gamezone.getBoundingClientRect().width - this.width);
+    const heightUsable = -(gamezone.getBoundingClientRect().height - this.height);
+   const OBJ = {
+     'top': [0, this.speed, 'height', 1, 'y'],
+     'right': [widthUsable, this.speed, 'width', -1, 'x'],
+     'bottom': [heightUsable, this.speed, 'height', -1, 'y'],
+     'left': [0, this.speed, 'width', 1, 'x'],
+   };
+      this.border(...OBJ[this.side]);
   }
   shoot() {
     if (!this.reload) {
