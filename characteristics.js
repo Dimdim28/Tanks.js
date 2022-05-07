@@ -66,7 +66,7 @@ const WAFEN_INFO_ARRAY = [
 const WAFEN_INFO = new Map(WAFEN_INFO_ARRAY);
 
 const ENEMY1_INFO_ARRAY = [
-  ['speed', 10],
+  ['speed', 2],
   ['hp', 1000],
   ['damage', 400],
   ['image', 'enemy'],
@@ -83,7 +83,7 @@ const ENEMY1_INFO_ARRAY = [
 const ENEMY1_INFO = new Map(ENEMY1_INFO_ARRAY);
 
 const ENEMY2_INFO_ARRAY = [
-  ['speed', 10],
+  ['speed', 2],
   ['hp', 1000],
   ['damage', 400],
   ['image', 'enemy'],
@@ -101,7 +101,7 @@ const ENEMY2_INFO_ARRAY = [
 const ENEMY2_INFO = new Map(ENEMY2_INFO_ARRAY);
 
 const ENEMY3_INFO_ARRAY = [
-  ['speed', 10],
+  ['speed', 2],
   ['hp', 1000],
   ['damage', 400],
   ['image', 'enemy'],
@@ -119,7 +119,7 @@ const ENEMY3_INFO_ARRAY = [
 const ENEMY3_INFO = new Map(ENEMY3_INFO_ARRAY);
 
 const ENEMY4_INFO_ARRAY = [
-  ['speed', 10],
+  ['speed', 2],
   ['hp', 1000],
   ['damage', 400],
   ['image', 'enemy'],

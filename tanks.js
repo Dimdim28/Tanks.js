@@ -97,8 +97,8 @@ function controllers() {
 
 function collision(player, enemy) {
   const playerHealth = player.hp;
-  player.hp -= enemy.hp;
-  enemy.hp -= playerHealth;
+  player.hp -= 100;
+  enemy.hp -= 100;
   showPoints();
 }
 
@@ -168,6 +168,10 @@ function playerbullets() {
     const tank = identity === 'player' ?
       player :
       ENEMIES[identity];
+    if (!tank) {
+      bullet.parentNode.removeChild(bullet);
+      continue;
+    }
     const direction = bullet.getAttribute('direction');
     const sign = (direction === 'top' || direction === 'left') ? 1 : -1;
     moveBull(tank, direction, bullet, sign);
@@ -216,14 +220,25 @@ function spawnenemies() {
 function moveenemies() {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
-    ENEMIES[key].move();
+    const enemy = ENEMIES[key];
+    if (enemy) {
+      if (enemy.hp <= 0) {
+        enemy.die();
+        ENEMIES[key] = null;
+      } else {
+        enemy.move();
+      }
+    }
   }
 }
 
 function shootEnemies() {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
-    ENEMIES[key].shoot();
+    const enemy = ENEMIES[key];
+    if (enemy) {
+      enemy.shoot();
+    }
   }
 }
 
