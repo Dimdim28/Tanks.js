@@ -13,7 +13,7 @@ const ints = {
   bullet: false,
 };
 
-let player = {
+const player = {
   el: null,
   x: GAMEZONEWIDTH / 2,
   y: GAMEZONEHEIGHT / 2,
@@ -115,15 +115,12 @@ function turnToCollision(element, side1, side2, condition1, condition2) {
 function oneBullet(el) {
   const widthZone = gamezone.getBoundingClientRect().width;
   const heightZone = gamezone.getBoundingClientRect().height;
+  const [X, Y, W, H, BSZ] = [el.x, el.y, el.width, el.height, el.bulletsize];
   const MAPARRAY = [
-    ['top', [el.x + el.width / 2 -
-    el.bulletsize / 2, el.y - el.bulletsize]],
-    ['right', [ widthZone - el.x -
-      el.width, el.y + el.height / 2 - el.bulletsize / 2]],
-    ['bottom', [ el.x + el.width / 2 -
-    el.bulletsize / 2, heightZone - el.y - el.height - el.bulletsize / 2]],
-    ['left', [el.x - el.bulletsize, el.y +
-      el.height / 2 - el.bulletsize / 2]], ];
+    ['top', [X + W / 2 - BSZ / 2, Y - BSZ]],
+    ['right', [ widthZone - X - W, Y + H / 2 - BSZ / 2]],
+    ['bottom', [ X + W / 2 - BSZ / 2, heightZone - Y - H - BSZ / 2]],
+    ['left', [X - BSZ, Y + H / 2 - BSZ / 2]], ];
   const MAP = new Map(MAPARRAY);
   addbullet(el, ...MAP.get(el.side));
 }
@@ -210,16 +207,16 @@ function game() {
   k++;
 }
 
-function stopGame(){
-clearInterval(ints.bullets);
-clearInterval(ints.run);
-clearInterval(ints.enemmove);
-clearInterval(ints.enemshoot);
-const ENEMIES_KEYS = Object.keys(ENEMIES);
-for (const key of ENEMIES_KEYS) {
-const enemy = ENEMIES[key];
- enemy.die();
-  ENEMIES[key] = null;
+function stopGame() {
+  clearInterval(ints.bullets);
+  clearInterval(ints.run);
+  clearInterval(ints.enemmove);
+  clearInterval(ints.enemshoot);
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
+  for (const key of ENEMIES_KEYS) {
+    const enemy = ENEMIES[key];
+    enemy.die();
+    ENEMIES[key] = null;
   }
 }
 
