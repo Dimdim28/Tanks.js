@@ -161,7 +161,7 @@ function moveBull(tank, direction, bullet, sign) {
     bullet.parentNode.removeChild(bullet);
 }
 
-function playerbullets() {
+function bullets() {
   const bullets = document.querySelectorAll('.bullet');
   for (const bullet of bullets) {
     const identity = bullet.getAttribute('identity');
@@ -185,7 +185,7 @@ function showPoints() {
 
 function intervalls() {
   ints.run = setInt(run);
-  ints.playerbullets = setInt(playerbullets);
+  ints.bullets = setInt(bullets);
   ints.enemmove = setInt(moveenemies);
   ints.enemshoot = setInt(shootEnemies, fps);
 }
