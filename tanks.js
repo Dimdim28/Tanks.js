@@ -184,9 +184,9 @@ function showPoints() {
 }
 
 function intervalls() {
-  ints.run = setInt(run);
-  ints.bullets = setInt(bullets);
-  ints.enemmove = setInt(moveenemies);
+  ints.run = setInt(run, fps);
+  ints.bullets = setInt(bullets, fps);
+  ints.enemmove = setInt(moveenemies, fps);
   ints.enemshoot = setInt(shootEnemies, fps);
 }
 
@@ -208,6 +208,19 @@ function game() {
   controllers();
   intervalls();
   k++;
+}
+
+function stopGame(){
+clearInterval(ints.bullets);
+clearInterval(ints.run);
+clearInterval(ints.enemmove);
+clearInterval(ints.enemshoot);
+const ENEMIES_KEYS = Object.keys(ENEMIES);
+for (const key of ENEMIES_KEYS) {
+const enemy = ENEMIES[key];
+ enemy.die();
+  ENEMIES[key] = null;
+  }
 }
 
 function spawnenemies() {

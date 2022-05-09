@@ -84,7 +84,7 @@ class Enemy extends SmallTank {
   }
 
   border(usableSize, speed, size, sign, side) {
-    const OBJ = {
+    const AXIS = {
       'y': [this, 'right', 'left', this.x + this.width < player.x, this.x > player.x + player.width],
       'x': [this, 'top', 'bottom', this.y > player.y + player.height, this.y + this.height < player.y],
     };
@@ -92,7 +92,7 @@ class Enemy extends SmallTank {
     const DIFFERENCE = this.difference(size, side);
     if (sign * this[side] > usableSize) {
       if (DIFFERENCE  < this[size] / 4) {
-        turnToCollision(...OBJ[side]);
+        turnToCollision(...AXIS[side]);
       } else {
         this[side] -= sign * speed;
         if (side === 'y') {
