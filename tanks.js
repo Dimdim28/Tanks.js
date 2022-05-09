@@ -13,7 +13,7 @@ const ints = {
   bullet: false,
 };
 
-const player = {
+let player = {
   el: null,
   x: GAMEZONEWIDTH / 2,
   y: GAMEZONEHEIGHT / 2,
@@ -149,29 +149,23 @@ function run() {
   player.el.style.left = `${x}px`;
 }
 
-function moveBull(tank, direction, bullet, sign) {
+function moveBull(bullet, sign, size, speed, direction) {
   (sign * bullet.getBoundingClientRect()[direction] >
-  sign * (gamezone.getBoundingClientRect()[direction] + tank.bulletsize)) ?
+  sign * (gamezone.getBoundingClientRect()[direction] + size)) ?
     bullet.style[direction] = `${parseInt(bullet.style[direction]
       .replace('px', ''), 10) -
-  tank.bulletspeed}px` :
+  speed}px` :
     bullet.parentNode.removeChild(bullet);
 }
 
 function bullets() {
   const bullets = document.querySelectorAll('.bullet');
   for (const bullet of bullets) {
-    const identity = bullet.getAttribute('identity');
-    const tank = identity === 'player' ?
-      player :
-      ENEMIES[identity];
-    if (!tank) {
-      bullet.parentNode.removeChild(bullet);
-      continue;
-    }
     const direction = bullet.getAttribute('direction');
     const sign = (direction === 'top' || direction === 'left') ? 1 : -1;
-    moveBull(tank, direction, bullet, sign);
+    const size = parseInt(bullet.style['width'], 10);
+    const speed = parseInt(bullet.getAttribute('speed'), 10);
+    moveBull(bullet, sign, size, speed, direction);
   }
 }
 
@@ -193,7 +187,8 @@ function addbullet(tank, x, y) {
   const HORISONTAL = DIRECTION === 'right' ? 'right' :  'left';
   const VERTICAL = DIRECTION === 'bottom' ?  'bottom' :  'top';
   const BULLET_EL = `<div class="bullet" direction = ${DIRECTION}
-   identity = ${IDENTITY}
+   identity = ${IDENTITY}\
+   speed = ${tank.bulletspeed}\
     style = "${HORISONTAL}: ${x}px; ${VERTICAL}: ${y}px; 
     width:${tank.bulletsize}px; height:${tank.bulletsize}px"></div>`;
   gamezone.insertAdjacentHTML('beforeend', BULLET_EL);
