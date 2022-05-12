@@ -236,7 +236,3 @@ function moveenemies() {
   }
 }
 
-
-setTimeout(() => {
-  // ENEMIES.enemy1.die();
-}, 2000);
