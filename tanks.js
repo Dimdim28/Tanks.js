@@ -153,8 +153,7 @@ function moveBull(bullet, sign, size, speed, direction) {
   (sign * bullet.getBoundingClientRect()[direction] >
   sign * (gamezone.getBoundingClientRect()[direction] + size)) ?
     bullet.style[direction] = `${parseInt(bullet.style[direction]
-      .replace('px', ''), 10) -
-  speed}px` :
+      .replace('px', ''), 10) - speed}px` :
     bullet.parentNode.removeChild(bullet);
 }
 
@@ -178,7 +177,7 @@ function intervalls() {
   ints.run = setInt(run, fps);
   ints.bullets = setInt(bullets, fps);
   ints.enemmove = setInt(moveenemies, fps);
-  ints.enemshoot = setInt(shootEnemies, fps);
+ // ints.enemshoot = setInt(shootEnemies, fps);
 }
 
 function addbullet(tank, x, y) {
@@ -237,15 +236,6 @@ function moveenemies() {
   }
 }
 
-function shootEnemies() {
-  const ENEMIES_KEYS = Object.keys(ENEMIES);
-  for (const key of ENEMIES_KEYS) {
-    const enemy = ENEMIES[key];
-    if (enemy) {
-      enemy.shoot();
-    }
-  }
-}
 
 setTimeout(() => {
   // ENEMIES.enemy1.die();

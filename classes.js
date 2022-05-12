@@ -48,7 +48,7 @@ class Enemy extends SmallTank {
     this.x = collection.get('x');
     this.y = collection.get('y');
     this.side = collection.get('side');
-    this.reload = false;
+    this.reload = true;
   }
 
   find() {
@@ -79,6 +79,16 @@ class Enemy extends SmallTank {
     this.back();
   }
 
+  shoot() {
+    if (this.reload) {
+      oneBullet(this);
+      this.reload = false;
+      setTimeout(() => {
+        this.reload = true;
+      }, this.bullettime);
+    }
+  }
+
   difference(size, side) {
     return Math.abs(this[side] + this[size] / 2 - player[side] - player[size] / 2);
   }
@@ -93,6 +103,7 @@ class Enemy extends SmallTank {
     if (sign * this[side] > usableSize) {
       if (DIFFERENCE  < this[size] / 4) {
         turnToCollision(...AXIS[side]);
+        this.shoot();
       } else {
         this[side] -= sign * speed;
         if (side === 'y') {
@@ -118,13 +129,5 @@ class Enemy extends SmallTank {
     };
     this.border(...OBJ[this.side]);
   }
-  shoot() {
-    if (!this.reload) {
-      this.reload = true;
-      setTimeout(() => {
-        oneBullet(this);
-        this.reload = false;
-      }, this.bullettime + Math.floor(Math.random() * 5000));
-    }
-  }
+
 }
