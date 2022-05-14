@@ -209,6 +209,10 @@ function subtPoints(elem, source) {
   elem.points -= source.points;
 }
 
+function choose(elem) {
+  PLAYER_TANKS[elem].active();
+}
+
 function stopGame() {
   clearInterval(ints.bullets);
   clearInterval(ints.run);
