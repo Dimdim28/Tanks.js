@@ -139,6 +139,7 @@ function shooting() {
 }
 
 function run() {
+  if(player.hp <= 0) stopGame();
   if (!player.run) return;
   const { side, x, y, speed, width, height } = player;
   const rect = gamezone.getBoundingClientRect();
