@@ -1,3 +1,5 @@
+'use strict';
+
 const gamezone = document.querySelector('.gamezone');
 const hangar = document.querySelector('.hangar');
 const hp = document.querySelector('.hpnumber');
@@ -134,3 +136,4 @@ const ENEMY4_INFO_ARRAY = [
   ['side', 'top'],
 ];
 const ENEMY4_INFO = new Map(ENEMY4_INFO_ARRAY);
+

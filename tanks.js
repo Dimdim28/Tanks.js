@@ -75,12 +75,14 @@ function controllers() {
   ];
   const MAP = new Map(PARAMETRS);
   document.addEventListener('keydown', e => {
-    const VALUE = MAP.get(e.code);
-    if (VALUE) { turn(player, ...VALUE); } else if (e.code === 'ShiftLeft') {
-      player.fire = true;
-      if (!player.reload) {
-        player.reload = true;
-        shooting();
+    if(k){
+      const VALUE = MAP.get(e.code);
+      if (VALUE) { turn(player, ...VALUE); } else if (e.code === 'ShiftLeft') {
+        player.fire = true;
+        if (!player.reload) {
+          player.reload = true;
+          shooting();
+        }
       }
     }
   });
@@ -202,6 +204,9 @@ function game() {
 function addPoints(elem, source) {
   elem.points += source.points;
 }
+function subtPoints(elem, source){
+  elem.points -= source.points;
+}
 
 function stopGame() {
   clearInterval(ints.bullets);
@@ -215,6 +220,11 @@ function stopGame() {
       enemy.die();
       ENEMIES[key] = null;
     }
+  }
+  player.el.parentNode.removeChild(player.el);
+  let bullets = document.querySelectorAll('.bullet');
+  for(const bullet of bullets){
+    bullet.parentNode.removeChild(bullet);
   }
 }
 

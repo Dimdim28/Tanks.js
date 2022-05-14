@@ -16,7 +16,6 @@ class BigTank {
     if (k === 0) {
       player = Object.assign(player, this);
       game();
-      console.log(player);
     }
   }
 
