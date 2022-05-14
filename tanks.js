@@ -210,7 +210,9 @@ function subtPoints(elem, source) {
 }
 
 function choose(elem) {
-  PLAYER_TANKS[elem].active();
+  if (player.points >= PLAYER_TANKS[elem].points) {
+    PLAYER_TANKS[elem].active();
+  }
 }
 
 function stopGame() {
