@@ -75,7 +75,7 @@ function controllers() {
   ];
   const MAP = new Map(PARAMETRS);
   document.addEventListener('keydown', e => {
-    if(k){
+    if (k) {
       const VALUE = MAP.get(e.code);
       if (VALUE) { turn(player, ...VALUE); } else if (e.code === 'ShiftLeft') {
         player.fire = true;
@@ -139,7 +139,7 @@ function shooting() {
 }
 
 function run() {
-  if(player.hp <= 0) stopGame();
+  if (player.hp <= 0) stopGame();
   if (!player.run) return;
   const { side, x, y, speed, width, height } = player;
   const rect = gamezone.getBoundingClientRect();
@@ -205,7 +205,7 @@ function game() {
 function addPoints(elem, source) {
   elem.points += source.points;
 }
-function subtPoints(elem, source){
+function subtPoints(elem, source) {
   elem.points -= source.points;
 }
 
@@ -223,8 +223,8 @@ function stopGame() {
     }
   }
   player.el.parentNode.removeChild(player.el);
-  let bullets = document.querySelectorAll('.bullet');
-  for(const bullet of bullets){
+  const bullets = document.querySelectorAll('.bullet');
+  for (const bullet of bullets) {
     bullet.parentNode.removeChild(bullet);
   }
 }
