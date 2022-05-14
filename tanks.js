@@ -21,7 +21,7 @@ let player = {
   side: '',
   fire: true,
   reload: false,
-  points: 0,
+  points: 500,
 };
 
 const PLAYER_TANKS = {
@@ -199,6 +199,10 @@ function game() {
   k++;
 }
 
+function addPoints(elem, source) {
+  elem.points += source.points;
+}
+
 function stopGame() {
   clearInterval(ints.bullets);
   clearInterval(ints.run);
@@ -228,6 +232,8 @@ function moveenemies() {
     if (enemy) {
       if (enemy.hp <= 0) {
         enemy.die();
+        addPoints(player, enemy);
+        showPoints();
         ENEMIES[key] = null;
       } else {
         enemy.move();
