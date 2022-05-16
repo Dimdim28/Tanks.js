@@ -183,8 +183,8 @@ position: relative;
     font-weight: 600;
 }
 .item{
-    width: 200px;
     margin: 10px;
+    height: 10vh;
 }
 .item:hover{
     transition: 0.3s;
