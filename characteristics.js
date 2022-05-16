@@ -141,3 +141,5 @@ const ENEMY4_INFO_ARRAY = [
   ['side', 'top'],
 ];
 const ENEMY4_INFO = new Map(ENEMY4_INFO_ARRAY);
+
+const ENEMY_CHARS = [ENEMY1_INFO, ENEMY2_INFO, ENEMY3_INFO, ENEMY4_INFO];

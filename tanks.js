@@ -34,13 +34,11 @@ const PLAYER_TANKS = {
 };
 
 const ENEMIES = {
-  enemy1: new Enemy(ENEMY1_INFO),
-  enemy2: new Enemy(ENEMY2_INFO),
-  enemy3: new Enemy(ENEMY3_INFO),
-  enemy4: new Enemy(ENEMY4_INFO),
+  enemy1: null,
+  enemy2: null,
+  enemy3: null,
+  enemy4: null,
 };
-
-let ENEMIESTEMP = Object.assign({}, ENEMIES);
 
 function init() {
   const div = document.createElement('div');
@@ -163,12 +161,12 @@ function run() {
 }
 
 function moveBull(bullet, sign, size, speed, direction) {
-  const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
   const tanks = [...ENEMIES_KEYS];
   const BULL = bullet.getBoundingClientRect();
   const damage = parseInt(bullet.getAttribute('damage'), 10);
   for (const elem of tanks) {
-    const enemy = ENEMIESTEMP[elem];
+    const enemy = ENEMIES[elem];
     if (enemy) {
       const ELEM = enemy.el.getBoundingClientRect();
       if (
@@ -241,9 +239,12 @@ function addbullet(tank, x, y) {
 }
 
 function game() {
-  ENEMIESTEMP = Object.assign(ENEMIESTEMP, ENEMIES);
+  const ENEMIES_ENTRIES = ENEMY_CHARS.entries();
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
+  for (const [index, value] of ENEMIES_ENTRIES) {
+    ENEMIES[ENEMIES_KEYS[index]] = new Enemy(value);
+  }
   (player.x = GAMEZONEWIDTH / 2), (player.y = GAMEZONEHEIGHT / 2), init();
-  console.log(ENEMIESTEMP);
   spawnenemies();
   controllers();
   intervalls();
@@ -268,12 +269,12 @@ function stopGame() {
   clearInterval(ints.run);
   clearInterval(ints.enemmove);
   k = 0;
-  const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
-    const enemy = ENEMIESTEMP[key];
+    const enemy = ENEMIES[key];
     if (enemy) {
       enemy.die();
-      ENEMIESTEMP[key] = null;
+      ENEMIES[key] = null;
     }
   }
   player.el.parentNode.removeChild(player.el);
@@ -284,24 +285,24 @@ function stopGame() {
 }
 
 function spawnenemies() {
-  const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
-    if (ENEMIESTEMP[key]) {
-      ENEMIESTEMP[key].spawn();
+    if (ENEMIES[key]) {
+      ENEMIES[key].spawn();
     }
   }
 }
 
 function moveenemies() {
-  const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
+  const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
-    const enemy = ENEMIESTEMP[key];
+    const enemy = ENEMIES[key];
     if (enemy) {
       if (enemy.hp <= 0) {
         enemy.die();
         addPoints(player, enemy);
         showPoints();
-        ENEMIESTEMP[key] = null;
+        ENEMIES[key] = null;
       } else {
         enemy.move();
       }
