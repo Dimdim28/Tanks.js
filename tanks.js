@@ -4,9 +4,10 @@ const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
 const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 
 let k = 0;
-const fps = 1000 / 60, colissionDamage = 300;
+const fps = 1000 / 60,
+  colissionDamage = 300;
 
-const setInt = func => setInterval(func, fps);
+const setInt = (func) => setInterval(func, fps);
 
 const ints = {
   run: false,
@@ -39,7 +40,7 @@ const ENEMIES = {
   enemy4: new Enemy(ENEMY4_INFO),
 };
 
-let ENEMIESTEMP;
+let ENEMIESTEMP = Object.assign({}, ENEMIES);
 
 function init() {
   const div = document.createElement('div');
@@ -69,17 +70,19 @@ function turn(tank, side, width, height) {
 function controllers() {
   const WIDTH = player.width;
   const HEIGHT = player.height;
-  const  PARAMETRS = [
+  const PARAMETRS = [
     ['KeyW', ['top', WIDTH, HEIGHT]],
     ['KeyD', ['right', HEIGHT, WIDTH]],
     ['KeyS', ['bottom', WIDTH, HEIGHT]],
     ['KeyA', ['left', HEIGHT, WIDTH]],
   ];
   const MAP = new Map(PARAMETRS);
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', (e) => {
     if (k) {
       const VALUE = MAP.get(e.code);
-      if (VALUE) { turn(player, ...VALUE); } else if (e.code === 'ShiftLeft') {
+      if (VALUE) {
+        turn(player, ...VALUE);
+      } else if (e.code === 'ShiftLeft') {
         player.fire = true;
         if (!player.reload) {
           player.reload = true;
@@ -89,7 +92,7 @@ function controllers() {
     }
   });
 
-  document.addEventListener('keyup', e => {
+  document.addEventListener('keyup', (e) => {
     const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
     if (codes.includes(e.code)) {
       player.run = false;
@@ -121,9 +124,10 @@ function oneBullet(el) {
   const [X, Y, W, H, BSZ] = [el.x, el.y, el.width, el.height, el.bulletsize];
   const MAPARRAY = [
     ['top', [X + W / 2 - BSZ / 2, Y - BSZ]],
-    ['right', [ widthZone - X - W, Y + H / 2 - BSZ / 2]],
-    ['bottom', [ X + W / 2 - BSZ / 2, heightZone - Y - H - BSZ / 2]],
-    ['left', [X - BSZ, Y + H / 2 - BSZ / 2]], ];
+    ['right', [widthZone - X - W, Y + H / 2 - BSZ / 2]],
+    ['bottom', [X + W / 2 - BSZ / 2, heightZone - Y - H - BSZ / 2]],
+    ['left', [X - BSZ, Y + H / 2 - BSZ / 2]],
+  ];
   const MAP = new Map(MAPARRAY);
   addbullet(el, ...MAP.get(el.side));
 }
@@ -154,18 +158,39 @@ function run() {
 }
 
 function moveBull(bullet, sign, size, speed, direction) {
-  (sign * bullet.getBoundingClientRect()[direction] >
-  sign * (gamezone.getBoundingClientRect()[direction] + size)) ?
-    bullet.style[direction] = `${parseInt(bullet.style[direction]
-      .replace('px', ''), 10) - speed}px` :
-    bullet.parentNode.removeChild(bullet);
+  const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
+  const tanks = [...ENEMIES_KEYS];
+  const BULL = bullet.getBoundingClientRect();
+  const damage = parseInt(bullet.getAttribute('damage'), 10);
+  for (const elem of tanks) {
+    const enemy = ENEMIESTEMP[elem];
+    if (enemy) {
+      const ELEM = enemy.el.getBoundingClientRect();
+      if (
+        BULL.left > ELEM.left &&
+        BULL.right < ELEM.right &&
+        BULL.top > ELEM.top &&
+        BULL.bottom < ELEM.bottom
+      ) {
+        enemy.hp -= damage;
+        bullet.parentNode.removeChild(bullet);
+      }
+    }
+  }
+
+  sign * bullet.getBoundingClientRect()[direction] >
+  sign * (gamezone.getBoundingClientRect()[direction] + size)
+    ? (bullet.style[direction] = `${
+        parseInt(bullet.style[direction].replace('px', ''), 10) - speed
+      }px`)
+    : bullet.parentNode.removeChild(bullet);
 }
 
 function bullets() {
   const bullets = document.querySelectorAll('.bullet');
   for (const bullet of bullets) {
     const direction = bullet.getAttribute('direction');
-    const sign = (direction === 'top' || direction === 'left') ? 1 : -1;
+    const sign = direction === 'top' || direction === 'left' ? 1 : -1;
     const size = parseInt(bullet.style['width'], 10);
     const speed = parseInt(bullet.getAttribute('speed'), 10);
     moveBull(bullet, sign, size, speed, direction);
@@ -186,10 +211,12 @@ function intervalls() {
 function addbullet(tank, x, y) {
   const DIRECTION = tank.side;
   const IDENTITY = tank.name ? tank.name : 'player';
-  const HORISONTAL = DIRECTION === 'right' ? 'right' :  'left';
-  const VERTICAL = DIRECTION === 'bottom' ?  'bottom' :  'top';
+  const DAMAGE = tank.damage;
+  const HORISONTAL = DIRECTION === 'right' ? 'right' : 'left';
+  const VERTICAL = DIRECTION === 'bottom' ? 'bottom' : 'top';
   const BULLET_EL = `<div class="bullet" direction = ${DIRECTION}
    identity = ${IDENTITY}\
+   damage = ${DAMAGE}\
    speed = ${tank.bulletspeed}\
     style = "${HORISONTAL}: ${x}px; ${VERTICAL}: ${y}px; 
     width:${tank.bulletsize}px; height:${tank.bulletsize}px"></div>`;
@@ -197,10 +224,9 @@ function addbullet(tank, x, y) {
 }
 
 function game() {
-  ENEMIESTEMP = Object.assign({}, ENEMIES);
-  player.x = GAMEZONEWIDTH / 2,
-  player.y = GAMEZONEHEIGHT / 2,
-  init();
+  ENEMIESTEMP = Object.assign(ENEMIESTEMP, ENEMIES);
+  (player.x = GAMEZONEWIDTH / 2), (player.y = GAMEZONEHEIGHT / 2), init();
+  console.log(ENEMIESTEMP);
   spawnenemies();
   controllers();
   intervalls();
@@ -263,4 +289,3 @@ function moveenemies() {
     }
   }
 }
-
