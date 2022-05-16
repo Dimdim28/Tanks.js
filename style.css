@@ -210,9 +210,9 @@ filter: brightness(1.4);
     justify-content: space-around;
     align-items: center;
     color:white;
-    font-size: 30px ;
+    font-size: 4vh;
     font-weight: 700;
-    height: 5%;
+    height: 5vh;
 }
 
 p.made{
@@ -226,7 +226,7 @@ p.made{
     display: flex;
 }
 .number{
-font-size: 30px;
+font-size: 4vh;
 font-weight: 700;
 display: block;
 }
