@@ -170,13 +170,25 @@ body { /*убирает пробел*/
     background-size: 100% 100%;
 }
 
+.tank  {
+position: relative;
+}
+
+.tank p {
+    position: absolute;
+    font-size: 20px;
+    color: white;
+    bottom: 0;
+    right: 0;
+    font-weight: 600;
+}
 .item{
     width: 200px;
-    margin: 0;
+    margin: 10px;
 }
 .item:hover{
-    transform: scale(1.3);
     transition: 0.3s;
+filter: brightness(1.4);
 }
 
 .bullet{
@@ -218,3 +230,13 @@ font-size: 30px;
 font-weight: 700;
 display: block;
 }
+
+
+@media (max-width: 800px) {
+    .footer, .number{
+        font-size: 20px;
+    }
+    .item{
+        width: 150px;
+    }
+ }
