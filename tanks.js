@@ -145,7 +145,12 @@ function shooting() {
 }
 
 function run() {
-  if (player.hp <= 0) stopGame();
+  if (player.hp <= 0){
+    stopGame();
+    player.hp = 0;
+    showPoints();
+  } 
+
   if (!player.run) return;
   const { side, x, y, speed, width, height } = player;
   const rect = gamezone.getBoundingClientRect();
@@ -175,6 +180,19 @@ function moveBull(bullet, sign, size, speed, direction) {
         enemy.hp -= damage;
         bullet.parentNode.removeChild(bullet);
       }
+      const PLAYER = player.el.getBoundingClientRect();
+
+      if (
+        BULL.left > PLAYER.left &&
+        BULL.right < PLAYER.right &&
+        BULL.top > PLAYER.top &&
+        BULL.bottom < PLAYER.bottom
+      ) {
+        player.hp -= damage;
+        bullet && bullet.parentNode.removeChild(bullet);
+        showPoints();
+      }
+
     }
   }
 
@@ -183,7 +201,7 @@ function moveBull(bullet, sign, size, speed, direction) {
     ? (bullet.style[direction] = `${
         parseInt(bullet.style[direction].replace('px', ''), 10) - speed
       }px`)
-    : bullet.parentNode.removeChild(bullet);
+    : bullet && bullet.parentNode.removeChild(bullet);
 }
 
 function bullets() {
@@ -269,7 +287,9 @@ function stopGame() {
 function spawnenemies() {
   const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
   for (const key of ENEMIES_KEYS) {
-    ENEMIESTEMP[key].spawn();
+    if(ENEMIESTEMP[key]){
+      ENEMIESTEMP[key].spawn();
+    }
   }
 }
 
