@@ -172,7 +172,7 @@ body { /*убирает пробел*/
 
 .item{
     width: 200px;
-    margin: 40px;
+    margin: 0;
 }
 .item:hover{
     transform: scale(1.3);

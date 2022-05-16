@@ -145,11 +145,11 @@ function shooting() {
 }
 
 function run() {
-  if (player.hp <= 0){
+  if (player.hp <= 0) {
     stopGame();
     player.hp = 0;
     showPoints();
-  } 
+  }
 
   if (!player.run) return;
   const { side, x, y, speed, width, height } = player;
@@ -192,7 +192,6 @@ function moveBull(bullet, sign, size, speed, direction) {
         bullet && bullet.parentNode.removeChild(bullet);
         showPoints();
       }
-
     }
   }
 
@@ -287,7 +286,7 @@ function stopGame() {
 function spawnenemies() {
   const ENEMIES_KEYS = Object.keys(ENEMIESTEMP);
   for (const key of ENEMIES_KEYS) {
-    if(ENEMIESTEMP[key]){
+    if (ENEMIESTEMP[key]) {
       ENEMIESTEMP[key].spawn();
     }
   }
