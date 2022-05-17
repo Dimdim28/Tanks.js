@@ -7,7 +7,7 @@ let k = 0;
 const fps = 1000 / 60,
   colissionDamage = 300;
 
-const setInt = (func) => setInterval(func, fps);
+const setInt = func => setInterval(func, fps);
 
 const ints = {
   run: false,
@@ -75,7 +75,7 @@ function controllers() {
     ['KeyA', ['left', HEIGHT, WIDTH]],
   ];
   const MAP = new Map(PARAMETRS);
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (k) {
       const VALUE = MAP.get(e.code);
       if (VALUE) {
@@ -90,7 +90,7 @@ function controllers() {
     }
   });
 
-  document.addEventListener('keyup', (e) => {
+  document.addEventListener('keyup', e => {
     const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
     if (codes.includes(e.code)) {
       player.run = false;
@@ -160,6 +160,13 @@ function run() {
   player.el.style.left = `${x}px`;
 }
 
+function strike(bull, elem) {
+  return  bull.left > elem.left &&
+  bull.right < elem.right &&
+  bull.top > elem.top &&
+  bull.bottom < elem.bottom;
+}
+
 function moveBull(bullet, sign, size, speed, direction) {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   const tanks = [...ENEMIES_KEYS];
@@ -169,23 +176,12 @@ function moveBull(bullet, sign, size, speed, direction) {
     const enemy = ENEMIES[elem];
     if (enemy) {
       const ELEM = enemy.el.getBoundingClientRect();
-      if (
-        BULL.left > ELEM.left &&
-        BULL.right < ELEM.right &&
-        BULL.top > ELEM.top &&
-        BULL.bottom < ELEM.bottom
-      ) {
+      if (strike(BULL, ELEM)) {
         enemy.hp -= damage;
         bullet.parentNode.removeChild(bullet);
       }
       const PLAYER = player.el.getBoundingClientRect();
-
-      if (
-        BULL.left > PLAYER.left &&
-        BULL.right < PLAYER.right &&
-        BULL.top > PLAYER.top &&
-        BULL.bottom < PLAYER.bottom
-      ) {
+      if (strike(BULL, PLAYER)) {
         player.hp -= damage;
         bullet && bullet.parentNode.removeChild(bullet);
         showPoints();
@@ -194,11 +190,11 @@ function moveBull(bullet, sign, size, speed, direction) {
   }
 
   sign * bullet.getBoundingClientRect()[direction] >
-  sign * (gamezone.getBoundingClientRect()[direction] + size)
-    ? (bullet.style[direction] = `${
-        parseInt(bullet.style[direction].replace('px', ''), 10) - speed
-      }px`)
-    : bullet && bullet.parentNode.removeChild(bullet);
+  sign * (gamezone.getBoundingClientRect()[direction] + size) ?
+    (bullet.style[direction] = `${
+      parseInt(bullet.style[direction].replace('px', ''), 10) - speed
+    }px`) :
+    bullet && bullet.parentNode.removeChild(bullet);
 }
 
 function bullets() {
