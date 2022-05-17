@@ -46,6 +46,9 @@ function init() {
   div.style.display = 'block';
   div.style.left = `${player.x}px`;
   div.style.top = `${player.y}px`;
+  div.style.backgroundImage = player.right;
+  div.style.backgroundImage = player.bottom;
+  div.style.backgroundImage = player.left;
   div.style.backgroundImage = player.top;
   div.style.height = `${player.height}px`;
   div.style.width = `${player.width}px`;
