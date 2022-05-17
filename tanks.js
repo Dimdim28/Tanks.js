@@ -46,16 +46,16 @@ function init() {
   div.style.display = 'block';
   div.style.left = `${player.x}px`;
   div.style.top = `${player.y}px`;
-  div.style.backgroundImage = player.right;
-  div.style.backgroundImage = player.bottom;
-  div.style.backgroundImage = player.left;
-  div.style.backgroundImage = player.top;
   div.style.height = `${player.height}px`;
   div.style.width = `${player.width}px`;
   gamezone.append(div);
   player.el = document.querySelector('.gamer');
   points.textContent = `${player.points}`;
   hp.textContent = `${player.hp}`;
+  player.el.style.backgroundImage = player.right;
+  player.el.style.backgroundImage = player.bottom;
+  player.el.style.backgroundImage = player.left;
+  player.el.style.backgroundImage = player.top;
 }
 
 function turn(tank, side, width, height) {
@@ -238,6 +238,7 @@ function addbullet(tank, x, y) {
 }
 
 function game() {
+  playAudio(theme);
   const ENEMIES_ENTRIES = ENEMY_CHARS.entries();
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const [index, value] of ENEMIES_ENTRIES) {
@@ -264,6 +265,8 @@ function choose(elem) {
 }
 
 function stopGame() {
+  stopAudio(theme);
+  startTimeAudio(theme);
   clearInterval(ints.bullets);
   clearInterval(ints.run);
   clearInterval(ints.enemmove);
@@ -309,7 +312,7 @@ function moveenemies() {
       }
     }
   }
-  if(enemyDead !== 0 && enemyDead % 4 === 0){
+  if (enemyDead !== 0 && enemyDead % 4 === 0) {
     stopGame();
     enemyDead = 0;
   }
