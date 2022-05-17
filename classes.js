@@ -21,6 +21,7 @@ class BigTank {
       showPoints();
       hangar.style.display = 'none';
       game();
+      player.tank = this.image.toUpperCase();
     }
   }
 
@@ -85,7 +86,13 @@ class Enemy extends SmallTank {
 
   shoot() {
     if (this.reload) {
-      oneBullet(this);
+      setTimeout(() => {
+        playAudio(SHOOTINGAUDIOS.M4)
+          .then(startTimeAudio(SHOOTINGAUDIOS.M4));
+        oneBullet(this);
+      }, 500);
+      stopAudio(SHOOTINGAUDIOS.M4);
+      startTimeAudio(SHOOTINGAUDIOS.M4);
       this.reload = false;
       setTimeout(() => {
         this.reload = true;

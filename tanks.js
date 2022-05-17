@@ -134,10 +134,12 @@ function oneBullet(el) {
 }
 
 function shooting() {
-  oneBullet(player);
+  playAudio(SHOOTINGAUDIOS[player.tank])
+    .then(oneBullet(player)).then(startTimeAudio(SHOOTINGAUDIOS[player.tank]));
   const bulletsInt = setInterval(() => {
     if (player.fire === true) {
-      oneBullet(player);
+      playAudio(SHOOTINGAUDIOS[player.tank])
+        .then(oneBullet(player));
     } else {
       player.reload = false;
       clearInterval(bulletsInt);
@@ -238,7 +240,7 @@ function addbullet(tank, x, y) {
 }
 
 function game() {
-  playAudio(theme);
+  playAudio(THEME);
   const ENEMIES_ENTRIES = ENEMY_CHARS.entries();
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const [index, value] of ENEMIES_ENTRIES) {
@@ -265,8 +267,8 @@ function choose(elem) {
 }
 
 function stopGame() {
-  stopAudio(theme);
-  startTimeAudio(theme);
+  stopAudio(THEME);
+  startTimeAudio(THEME);
   clearInterval(ints.bullets);
   clearInterval(ints.run);
   clearInterval(ints.enemmove);
