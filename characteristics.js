@@ -6,15 +6,15 @@ const points = document.querySelector('.pointsnumber');
 const hangar = document.querySelector('.hangar');
 
 const M4_INFO_ARRAY = [
-  ['speed', 10],
+  ['speed', 2],
   ['hp', 1000],
   ['damage', 400],
   ['image', 'm4'],
   ['size', 77],
-  ['bulletspeed', 5],
+  ['bulletspeed', 10],
   ['bullettime', 2000],
   ['bulletsize', 16],
-  ['points', 300],
+  ['points', 100],
 ];
 const M4_INFO = new Map(M4_INFO_ARRAY);
 
@@ -23,8 +23,8 @@ const KV2_INFO_ARRAY = [
   ['hp', 1300],
   ['damage', 800],
   ['image', 'kv2'],
-  ['size', 150],
-  ['bulletspeed', 10],
+  ['size', 125],
+  ['bulletspeed', 15],
   ['bullettime', 1600],
   ['bulletsize', 20],
   ['points', 400],
@@ -32,7 +32,7 @@ const KV2_INFO_ARRAY = [
 const KV2_INFO = new Map(KV2_INFO_ARRAY);
 
 const AMX_INFO_ARRAY = [
-  ['speed', 15],
+  ['speed', 7],
   ['hp', 700],
   ['damage', 300],
   ['image', 'amx'],
@@ -45,7 +45,7 @@ const AMX_INFO_ARRAY = [
 const AMX_INFO = new Map(AMX_INFO_ARRAY);
 
 const BTR_INFO_ARRAY = [
-  ['speed', 20],
+  ['speed', 5],
   ['hp', 500],
   ['damage', 100],
   ['image', 'btr'],
@@ -58,7 +58,7 @@ const BTR_INFO_ARRAY = [
 const BTR_INFO = new Map(BTR_INFO_ARRAY);
 
 const WAFEN_INFO_ARRAY = [
-  ['speed', 20],
+  ['speed', 10],
   ['hp', 2000],
   ['damage', 1000],
   ['image', 'wafen'],
@@ -77,7 +77,7 @@ const ENEMY1_INFO_ARRAY = [
   ['damage', 400],
   ['image', 'enemy'],
   ['size', 77],
-  ['bulletspeed', 5],
+  ['bulletspeed', 10],
   ['bullettime', 2000],
   ['bulletsize', 16],
   ['points', 100],
@@ -94,7 +94,7 @@ const ENEMY2_INFO_ARRAY = [
   ['damage', 400],
   ['image', 'enemy'],
   ['size', 77],
-  ['bulletspeed', 5],
+  ['bulletspeed', 10],
   ['bullettime', 2000],
   ['bulletsize', 16],
   ['points', 100],
@@ -111,7 +111,7 @@ const ENEMY3_INFO_ARRAY = [
   ['damage', 400],
   ['image', 'enemy'],
   ['size', 77],
-  ['bulletspeed', 5],
+  ['bulletspeed', 10],
   ['bullettime', 2000],
   ['bulletsize', 16],
   ['points', 100],
@@ -128,7 +128,7 @@ const ENEMY4_INFO_ARRAY = [
   ['damage', 400],
   ['image', 'enemy'],
   ['size', 77],
-  ['bulletspeed', 5],
+  ['bulletspeed', 10],
   ['bullettime', 2000],
   ['bulletsize', 16],
   ['points', 100],
