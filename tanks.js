@@ -171,6 +171,11 @@ function strike(bull, elem) {
   bull.top > elem.top &&
   bull.bottom < elem.bottom;
 }
+function hit(bull, elem, damage){
+  elem.hp -= damage;
+  bull.parentNode.removeChild(bull);
+  showPoints();
+}
 
 function moveBull(bullet, sign, size, speed, direction) {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
@@ -181,16 +186,9 @@ function moveBull(bullet, sign, size, speed, direction) {
     const enemy = ENEMIES[elem];
     if (enemy) {
       const ELEM = enemy.el.getBoundingClientRect();
-      if (strike(BULL, ELEM)) {
-        enemy.hp -= damage;
-        bullet.parentNode.removeChild(bullet);
-      }
+      if (strike(BULL, ELEM)) hit(bullet, enemy, damage);
       const PLAYER = player.el.getBoundingClientRect();
-      if (strike(BULL, PLAYER)) {
-        player.hp -= damage;
-        bullet && bullet.parentNode.removeChild(bullet);
-        showPoints();
-      }
+      if (strike(BULL, PLAYER)) hit(bullet, player, damage);
     }
   }
 
