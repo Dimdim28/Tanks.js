@@ -3,7 +3,7 @@
 const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
 const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 
-let k = 0;
+let k = 0, enemyDead = 0;
 const fps = 1000 / 60,
   colissionDamage = 300;
 
@@ -303,9 +303,14 @@ function moveenemies() {
         addPoints(player, enemy);
         showPoints();
         ENEMIES[key] = null;
+        enemyDead++;
       } else {
         enemy.move();
       }
     }
+  }
+  if(enemyDead !== 0 && enemyDead % 4 === 0){
+    stopGame();
+    enemyDead = 0;
   }
 }
