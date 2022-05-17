@@ -282,6 +282,7 @@ function stopGame() {
   for (const bullet of bullets) {
     bullet.parentNode.removeChild(bullet);
   }
+  hangar.style.display = 'flex';
 }
 
 function spawnenemies() {

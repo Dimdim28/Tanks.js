@@ -19,6 +19,7 @@ class BigTank {
       player.points = tempPoints;
       subtPoints(player, this);
       showPoints();
+      hangar.style.display = 'none';
       game();
     }
   }

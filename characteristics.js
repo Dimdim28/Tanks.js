@@ -1,10 +1,9 @@
 'use strict';
 
 const gamezone = document.querySelector('.gamezone');
-const hangar = document.querySelector('.hangar');
 const hp = document.querySelector('.hpnumber');
 const points = document.querySelector('.pointsnumber');
-const leftpanel = document.querySelector('.leftPanel');
+const hangar = document.querySelector('.hangar');
 
 const M4_INFO_ARRAY = [
   ['speed', 10],
@@ -100,8 +99,7 @@ const ENEMY2_INFO_ARRAY = [
   ['bulletsize', 16],
   ['points', 100],
   ['name', 'enemy2'],
-  ['x', hangar.getBoundingClientRect().left -
-   leftpanel.getBoundingClientRect().width],
+  ['x', gamezone.getBoundingClientRect().width],
   ['y', 0],
   ['side', 'bottom'],
 ];
@@ -118,8 +116,7 @@ const ENEMY3_INFO_ARRAY = [
   ['bulletsize', 16],
   ['points', 100],
   ['name', 'enemy3'],
-  ['x', hangar.getBoundingClientRect().left -
-  leftpanel.getBoundingClientRect().width],
+  ['x', gamezone.getBoundingClientRect().width],
   ['y', gamezone.getBoundingClientRect().height],
   ['side', 'left'],
 ];
