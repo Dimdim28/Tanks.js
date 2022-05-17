@@ -80,7 +80,7 @@ function controllers() {
       const VALUE = MAP.get(e.code);
       if (VALUE) {
         turn(player, ...VALUE);
-      } else if (e.code === 'ShiftLeft') {
+      } else if (e.code === 'Enter') {
         player.fire = true;
         if (!player.reload) {
           player.reload = true;
@@ -94,7 +94,7 @@ function controllers() {
     const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
     if (codes.includes(e.code)) {
       player.run = false;
-    } else if (e.code === 'ShiftLeft') {
+    } else if (e.code === 'Enter') {
       player.fire = false;
     }
   });
@@ -152,10 +152,10 @@ function run() {
   if (!player.run) return;
   const { side, x, y, speed, width, height } = player;
   const rect = gamezone.getBoundingClientRect();
-  if (side === 'top' && y > 0) player.y -= speed;
-  else if (side === 'right' && x < rect.width - width) player.x += speed;
-  else if (side === 'bottom' && y < rect.height - height) player.y += speed;
-  else if (side === 'left' && x > 0) player.x -= speed;
+  if (side === 'top' && y > speed) player.y -= speed;
+  else if (side === 'right' && x < rect.width - width - speed) player.x += speed;
+  else if (side === 'bottom' && y < rect.height - height - speed) player.y += speed;
+  else if (side === 'left' && x > speed) player.x -= speed;
   player.el.style.top = `${y}px`;
   player.el.style.left = `${x}px`;
 }
