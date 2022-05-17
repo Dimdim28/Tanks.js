@@ -1,3 +1,13 @@
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;  }
+
+html {
+    overflow: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+}
+
 .container { 
     height: 100vh;
     width: 100vw;
