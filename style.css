@@ -47,8 +47,9 @@ body {
 .hangar{
     position: absolute;
     max-width: 40vw;
-left: 30vw;
-top: 40vh;    background-color: #3e8e41;
+    left: 30vw;
+    top: 40vh; 
+    background-color: #3e8e41;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

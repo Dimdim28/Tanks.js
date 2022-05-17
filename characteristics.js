@@ -14,7 +14,7 @@ const M4_INFO_ARRAY = [
   ['bulletspeed', 10],
   ['bullettime', 2000],
   ['bulletsize', 16],
-  ['points', 100],
+  ['points', 0],
 ];
 const M4_INFO = new Map(M4_INFO_ARRAY);
 
@@ -27,7 +27,7 @@ const KV2_INFO_ARRAY = [
   ['bulletspeed', 15],
   ['bullettime', 1600],
   ['bulletsize', 20],
-  ['points', 400],
+  ['points', 300],
 ];
 const KV2_INFO = new Map(KV2_INFO_ARRAY);
 
@@ -40,7 +40,7 @@ const AMX_INFO_ARRAY = [
   ['bulletspeed', 30],
   ['bullettime', 800],
   ['bulletsize', 12],
-  ['points', 300],
+  ['points', 200],
 ];
 const AMX_INFO = new Map(AMX_INFO_ARRAY);
 
@@ -53,7 +53,7 @@ const BTR_INFO_ARRAY = [
   ['bulletspeed', 20],
   ['bullettime', 100],
   ['bulletsize', 8],
-  ['points', 200],
+  ['points', 100],
 ];
 const BTR_INFO = new Map(BTR_INFO_ARRAY);
 
@@ -67,7 +67,7 @@ const WAFEN_INFO_ARRAY = [
   ['bulletspeed', 30],
   ['bullettime', 500],
   ['bulletsize', 15],
-  ['points', 600],
+  ['points', 1000],
 ];
 const WAFEN_INFO = new Map(WAFEN_INFO_ARRAY);
 
