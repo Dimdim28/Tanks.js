@@ -318,9 +318,10 @@ function moveenemies() {
         addPoints(player, enemy);
         showPoints();
         ENEMIES[key] = null;
+        enemyDead++;
+
         if (enemyDead % 2 === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
         else if (enemyDead !== 0) playAudio(VOICEAUDIOS.ENEMYDESTR2);
-        enemyDead++;
       } else  enemy.move();
     }
   }
