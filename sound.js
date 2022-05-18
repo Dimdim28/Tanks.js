@@ -2,6 +2,7 @@ const music = function(source) {
   const audio = new Audio();
   audio.preload = 'auto';
   audio.src = source;
+  audio.volume = 0.5;
   return audio;
 };
 
