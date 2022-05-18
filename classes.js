@@ -86,9 +86,9 @@ class Enemy extends SmallTank {
 
   shoot() {
     if (this.reload) {
-        let audio = shootingAudio('m4.mp3');
-        audio.play().then(startTimeAudio(...SHOOTINGAUDIOS.M4));
-       if(this.el) oneBullet(this);
+      const audio = shootingAudio('m4.mp3');
+      audio.play().then(startTimeAudio(...SHOOTINGAUDIOS.M4));
+      if (this.el) oneBullet(this);
       this.reload = false;
       setTimeout(() => this.reload = true, this.bullettime);
     }

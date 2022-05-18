@@ -73,7 +73,7 @@ function controllers() {
   document.addEventListener('keyup', e => {
     const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
     if (codes.includes(e.code)) player.run = false;
-     else if (e.code === 'Enter') player.fire = false;
+    else if (e.code === 'Enter') player.fire = false;
   });
 }
 
@@ -108,13 +108,13 @@ function oneBullet(el) {
 }
 
 function shooting() {
-  let audio = shootingAudio(SHOOTINGAUDIOS[player.tank]);
+  const audio = shootingAudio(SHOOTINGAUDIOS[player.tank]);
   playAudio(audio)
-  .then(oneBullet(player))
-  .then(startTimeAudio(audio));
+    .then(oneBullet(player))
+    .then(startTimeAudio(audio));
   const bulletsInt = setInterval(() => {
     if (player.fire === true) {
-      let audio2 = shootingAudio(SHOOTINGAUDIOS[player.tank]);
+      const audio2 = shootingAudio(SHOOTINGAUDIOS[player.tank]);
       playAudio(audio2)
         .then(oneBullet(player))
         .then(startTimeAudio(audio2));
@@ -151,9 +151,9 @@ function strike(bull, elem) {
   bull.bottom < elem.bottom;
 }
 
-function hit(bull, elem, damage){
+function hit(bull, elem, damage) {
   elem.hp -= damage;
-  if(bull) bull.parentNode.removeChild(bull);
+  if (bull && bull.parentNode) bull.parentNode.removeChild(bull);
   showPoints();
 }
 
@@ -177,7 +177,7 @@ function moveBull(bullet, sign, size, speed, direction) {
     (bullet.style[direction] = `${
       parseInt(bullet.style[direction].replace('px', ''), 10) - speed
     }px`) :
-    bullet && bullet.parentNode.removeChild(bullet);
+    bullet && bullet.parentNode && bullet.parentNode.removeChild(bullet);
 }
 
 function bullets() {
@@ -242,10 +242,10 @@ function subtPoints(elem, source) {
 
 function choose(elem) {
   if (player.points >= PLAYER_TANKS[elem].points) {
-    let audio = VOICEAUDIOS.FIGHT;
+    const audio = VOICEAUDIOS.FIGHT;
     playAudio(audio);
     PLAYER_TANKS[elem].active();
-  }else{
+  } else {
     alert.textContent = 'Недостаточно очков!!';
     playAudio(VOICEAUDIOS.POINTS);
   }
@@ -305,8 +305,8 @@ function moveenemies() {
   }
 }
 
-function enemyDeathAlert(){
-if (enemyDead === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
- else if (enemyDead === 2) playAudio(VOICEAUDIOS.ENEMYDESTR2);
- else if (enemyDead === 3) playAudio(VOICEAUDIOS.ENEMYDESTR);
+function enemyDeathAlert() {
+  if (enemyDead === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
+  else if (enemyDead === 2) playAudio(VOICEAUDIOS.ENEMYDESTR2);
+  else if (enemyDead === 3) playAudio(VOICEAUDIOS.ENEMYDESTR);
 }
