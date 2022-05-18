@@ -11,7 +11,6 @@ html {
 .container { 
     height: 100vh;
     width: 100vw;
-    font-size: 1vw;
     font-family: Arial;
     display: flex;
     flex-direction: column;
@@ -40,7 +39,7 @@ body {
     background-image: url('./sprites/back.png');
     background-repeat: repeat;
     width: 100vw;
-    height: 95vh;
+    height: 93vh;
     position: relative;
 }
 
@@ -48,9 +47,9 @@ body {
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     position: absolute;
-    max-width: 40vw;
-    left: 30vw;
-    top: 40vh; 
+    max-width: 60vw;
+    left: 20vw;
+    top: 20vh; 
     background-image: url('./sprites/backmenumain.jpg');
     background-size: cover; 
     display: flex;
@@ -83,7 +82,6 @@ body {
     text-align: center;
 }
 
-
 .gamer{
     position: absolute;
     background-size: cover;
@@ -108,8 +106,8 @@ cursor: pointer;
     font-weight: 600;
 }
 .item{
-    margin: 10px;
-    height: 10vh;
+    margin: 20px;
+    width: 17vw;
 }
 .item:hover{
     transition: 0.3s;
@@ -138,7 +136,7 @@ filter: brightness(1.4);
     color:white;
     font-size: 30px;
     font-weight: 700;
-    height: 5vh;
+    height: 7vh;
 }
 
 .points{
@@ -152,36 +150,82 @@ font-size: 30px;
 font-weight: 700;
 display: block;
 }
-@media(max-width: 1082px){
+
+
+@media(max-width: 1200px){
     .hangar{
         top: 20vh;
-        max-width: 60vw;
-        left: 20vw;
+        max-width: 40vw;
+        left: 30vw;
+        }
+        .item{
+            width: 15vw;
         }
 }
 
 @media(max-width:998px){
 .hangar{
 top: 20vh;
-max-width: 50vw;
-left: 25vw;
-}
-.footer, .number{
-    font-size: 20px;
+max-width: 60vw;
+left: 20vw;
 }
 
+.footer, .number{
+    font-size: 15px;
+}
+
+.item{
+    width: 20vw;
+}
 }
 @media (max-width: 800px) {
     .footer, .number{
         font-size: 17px;
     }
     .item{
-       height: 8vh;
+        width: 20vw;
     }
  }
 
  @media (max-width:667px) {
      .footer, .number{
-         font-size: 15px;
+         font-size: 12px;
      }
+     .hangar{
+        top: 15vh;
+        max-width: 70vw;
+        left: 15vw;
+    }
+    .item{
+        width: 30vw;
+        margin: 10px;
+    }
+    .tank p {
+        font-size: 12px;
+    }
+    .alert{
+        font-size: 16px;
+    }
  }
+
+@media (max-width: 430px){
+    .hangar{
+        top: 10vh;
+        width: 70vw;
+        left: 15vw;
+    }
+    .tanks{
+        flex-direction: column;
+    }
+    .item{
+        min-width:  30vw;
+        margin: 20px;
+    }
+    .tank p {
+        font-size: 12px;
+    }
+    .alert{
+        font-size: 16px;
+    }
+ }
+}
