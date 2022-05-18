@@ -96,6 +96,7 @@ body {
 
 .tank  {
 position: relative;
+cursor: pointer;
 }
 
 .tank p {
