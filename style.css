@@ -45,17 +45,33 @@ body {
 }
 
 .hangar{
+    border-radius: 2%;
     position: absolute;
     max-width: 40vw;
     left: 30vw;
     top: 40vh; 
-    background-color: #3e8e41;
+    background-image: url('./sprites/backmenumain.jpg');
+    background-size: cover; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.choose{
+    width: 100%;
+    text-align: center;
+    color: black;
+    font-weight: 700;
+    font-size: 20px;
+    background-image: url('./sprites/backmenu.jpg');
+    background-size: cover;
+}
+.tanks{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
 }
-
 .gamer{
     position: absolute;
     background-size: cover;
@@ -99,7 +115,8 @@ filter: brightness(1.4);
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: darkgreen;
+    background-image: url('./sprites/backmenumain.jpg');
+    background-size: cover; 
     text-align: center;
     display: flex;
     flex-direction: row;
