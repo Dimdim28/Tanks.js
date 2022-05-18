@@ -153,7 +153,8 @@ function shooting() {
 
 function run() {
   if (player.hp <= 0) {
-    playAudio(VOICEAUDIOS.FAIL).then(stopGame());
+    stopGame();
+    playAudio(VOICEAUDIOS.FAIL);
     player.hp = 0;
     showPoints();
   }
@@ -267,8 +268,6 @@ function choose(elem) {
   if (player.points >= PLAYER_TANKS[elem].points) {
     let audio = VOICEAUDIOS.FIGHT;
     playAudio(audio);
-    //const myHandler = (e) => PLAYER_TANKS[elem].active();
-    //audio.addEventListener('ended', myHandler, false);
     PLAYER_TANKS[elem].active();
   }else{
     alert.textContent = 'Недостаточно очков!!';
@@ -327,12 +326,13 @@ function moveenemies() {
   }
   if (enemyDead !== 0 && enemyDead % 4 === 0) {
     playAudio(VOICEAUDIOS.VICTORY);
-    stopGame();
     enemyDead = 0;
+    stopGame();
   }
 }
 
 function enemyDeathAlert(){
-if (enemyDead % 2 === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
- else if (enemyDead !== 0) playAudio(VOICEAUDIOS.ENEMYDESTR2);  
+if (enemyDead === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
+ else if (enemyDead === 2) playAudio(VOICEAUDIOS.ENEMYDESTR2);
+ else if (enemyDead === 3) playAudio(VOICEAUDIOS.ENEMYDESTR);
 }
