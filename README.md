@@ -1,5 +1,9 @@
 ## Tanks.js
 
+Control:
+
+WSAD -  move,  Enter - shoot;
+
 ![image](https://user-images.githubusercontent.com/89345760/169092489-1d5913c2-0c77-4c1d-86bf-bc7b1f1779cd.png)
 
 
