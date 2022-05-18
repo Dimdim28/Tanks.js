@@ -5,6 +5,29 @@ const hp = document.querySelector('.hpnumber');
 const points = document.querySelector('.pointsnumber');
 const hangar = document.querySelector('.hangar');
 const alert = document.querySelector('.alert');
+const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
+const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
+
+let k = 0, enemyDead = 0;
+const fps = 1000 / 60, colissionDamage = 300;
+
+const ints = {
+  run: false,
+  bullet: false,
+  enemmove: false,
+};
+
+let player = {
+  el: null,
+  x: GAMEZONEWIDTH / 2,
+  y: GAMEZONEHEIGHT / 2,
+  run: false,
+  side: '',
+  fire: true,
+  reload: false,
+  points: 500,
+};
+
 
 const M4_INFO_ARRAY = [
   ['speed', 2],

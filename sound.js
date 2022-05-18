@@ -1,3 +1,4 @@
+
 const music = function(source) {
   const audio = new Audio();
   audio.preload = 'auto';
@@ -13,7 +14,7 @@ const THEME = music('./sounds/theme.mp3');
 
 const shootingAudio = name =>{
   const audio = music('./sounds/shooting/' + name);
-  audio.volume = 0.1;
+  audio.volume = 0.3;
   return audio;
 };
 const voiceAudio = name => music('./sounds/voice/' + name);

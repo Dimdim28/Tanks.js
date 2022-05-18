@@ -1,29 +1,6 @@
 'use strict';
 
-const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
-const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
-
-let k = 0, enemyDead = 0;
-const fps = 1000 / 60,
-  colissionDamage = 300;
-
 const setInt = func => setInterval(func, fps);
-
-const ints = {
-  run: false,
-  bullet: false,
-};
-
-let player = {
-  el: null,
-  x: GAMEZONEWIDTH / 2,
-  y: GAMEZONEHEIGHT / 2,
-  run: false,
-  side: '',
-  fire: true,
-  reload: false,
-  points: 500,
-};
 
 const PLAYER_TANKS = {
   M4: new SmallTank(M4_INFO),
@@ -95,11 +72,8 @@ function controllers() {
 
   document.addEventListener('keyup', e => {
     const codes = ['KeyW', 'KeyD', 'KeyS', 'KeyA'];
-    if (codes.includes(e.code)) {
-      player.run = false;
-    } else if (e.code === 'Enter') {
-      player.fire = false;
-    }
+    if (codes.includes(e.code)) player.run = false;
+     else if (e.code === 'Enter') player.fire = false;
   });
 }
 
@@ -176,6 +150,7 @@ function strike(bull, elem) {
   bull.top > elem.top &&
   bull.bottom < elem.bottom;
 }
+
 function hit(bull, elem, damage){
   elem.hp -= damage;
   if(bull) bull.parentNode.removeChild(bull);
@@ -191,9 +166,9 @@ function moveBull(bullet, sign, size, speed, direction) {
     const enemy = ENEMIES[elem];
     if (enemy) {
       const ELEM = enemy.el.getBoundingClientRect();
-      if (strike(BULL, ELEM)) hit(bullet, enemy, damage);
       const PLAYER = player.el.getBoundingClientRect();
-      if (strike(BULL, PLAYER)) hit(bullet, player, damage);
+      if (strike(BULL, ELEM)) hit(bullet, enemy, damage);
+      else if (strike(BULL, PLAYER)) hit(bullet, player, damage);
     }
   }
 
@@ -260,6 +235,7 @@ function game() {
 function addPoints(elem, source) {
   elem.points += source.points;
 }
+
 function subtPoints(elem, source) {
   elem.points -= source.points;
 }
@@ -302,9 +278,7 @@ function stopGame() {
 function spawnenemies() {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
-    if (ENEMIES[key]) {
-      ENEMIES[key].spawn();
-    }
+    if (ENEMIES[key])  ENEMIES[key].spawn();
   }
 }
 
