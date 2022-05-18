@@ -134,12 +134,16 @@ function oneBullet(el) {
 }
 
 function shooting() {
-  playAudio(SHOOTINGAUDIOS[player.tank])
-    .then(oneBullet(player)).then(startTimeAudio(SHOOTINGAUDIOS[player.tank]));
+  let audio = shootingAudio(SHOOTINGAUDIOS[player.tank]);
+  playAudio(audio)
+  .then(oneBullet(player))
+  .then(startTimeAudio(audio));
   const bulletsInt = setInterval(() => {
     if (player.fire === true) {
-      playAudio(SHOOTINGAUDIOS[player.tank])
-        .then(oneBullet(player));
+      let audio2 = shootingAudio(SHOOTINGAUDIOS[player.tank]);
+      playAudio(audio2)
+        .then(oneBullet(player))
+        .then(startTimeAudio(audio2));
     } else {
       player.reload = false;
       clearInterval(bulletsInt);
