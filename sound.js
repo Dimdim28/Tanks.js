@@ -4,6 +4,7 @@ const music = function(source) {
   audio.src = source;
   return audio;
 };
+
 const playAudio = audio => audio.play();
 const stopAudio = audio => audio.pause();
 const startTimeAudio = audio => audio.currentTime = 0;
