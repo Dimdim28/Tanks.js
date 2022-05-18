@@ -177,7 +177,7 @@ function strike(bull, elem) {
 }
 function hit(bull, elem, damage){
   elem.hp -= damage;
-  bull.parentNode.removeChild(bull);
+  if(bull) bull.parentNode.removeChild(bull);
   showPoints();
 }
 
@@ -265,6 +265,8 @@ function subtPoints(elem, source) {
 function choose(elem) {
   if (player.points >= PLAYER_TANKS[elem].points) {
     PLAYER_TANKS[elem].active();
+  }else{
+    alert.textContent = 'Недостаточно очков!!';
   }
 }
 
@@ -289,6 +291,7 @@ function stopGame() {
     bullet.parentNode.removeChild(bullet);
   }
   hangar.style.display = 'flex';
+  alert.textContent = '';
 }
 
 function spawnenemies() {

@@ -4,6 +4,7 @@ const gamezone = document.querySelector('.gamezone');
 const hp = document.querySelector('.hpnumber');
 const points = document.querySelector('.pointsnumber');
 const hangar = document.querySelector('.hangar');
+const alert = document.querySelector('.alert');
 
 const M4_INFO_ARRAY = [
   ['speed', 2],
