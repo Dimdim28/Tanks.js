@@ -29,13 +29,13 @@ const VOICEAUDIOS = {
   CHOOSE: voiceAudio('choose_tank.ogg'),
   CRITICAL: voiceAudio('critical.ogg'),
   DAMAGE: voiceAudio('damage.ogg'),
-  ENEMYDESTR: voiceAudio('enemy_destroyed.ogg'),
-  ENEMYDESTR2: voiceAudio('enemy_destroyed2.ogg'),
-  FAIL: voiceAudio('fail.ogg'),
-  FIGHT: voiceAudio('fight.ogg'),
+  ENEMYDESTR: voiceAudio('enemy_destroyed.ogg'),//+
+  ENEMYDESTR2: voiceAudio('enemy_destroyed2.ogg'),//+
+  FAIL: voiceAudio('fail.ogg'),//+
+  FIGHT: voiceAudio('fight.ogg'),//+
   HIT: voiceAudio('hit.ogg'),
-  POINTS: voiceAudio('not_anough_points.ogg'),
+  POINTS: voiceAudio('not_anough_points.ogg'),//+
   START: voiceAudio('start.ogg'),
   DESTR: voiceAudio('tank_destroyed.ogg'),
-  VICTORY: voiceAudio('victory.ogg'),
+  VICTORY: voiceAudio('victory.ogg'),//+
 };

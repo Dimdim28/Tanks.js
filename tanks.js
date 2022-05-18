@@ -242,6 +242,7 @@ function addbullet(tank, x, y) {
 }
 
 function game() {
+  enemyDead = 0;
   playAudio(THEME);
   const ENEMIES_ENTRIES = ENEMY_CHARS.entries();
   const ENEMIES_KEYS = Object.keys(ENEMIES);
@@ -315,18 +316,23 @@ function moveenemies() {
     if (enemy) {
       if (enemy.hp <= 0) {
         enemy.die();
+        enemyDead++;
         addPoints(player, enemy);
         showPoints();
         ENEMIES[key] = null;
-        enemyDead++;
-
-        if (enemyDead % 2 === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
-        else if (enemyDead !== 0) playAudio(VOICEAUDIOS.ENEMYDESTR2);
+        console.log(enemyDead);
+        enemyDeathAlert();
       } else  enemy.move();
     }
   }
   if (enemyDead !== 0 && enemyDead % 4 === 0) {
-    playAudio(VOICEAUDIOS.VICTORY).then(stopGame());
+    playAudio(VOICEAUDIOS.VICTORY);
+    stopGame();
     enemyDead = 0;
   }
+}
+
+function enemyDeathAlert(){
+if (enemyDead % 2 === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
+ else if (enemyDead !== 0) playAudio(VOICEAUDIOS.ENEMYDESTR2);  
 }
