@@ -18,6 +18,7 @@ const shootingAudio = name => {
 };
 const voiceAudio = name => music('./sounds/voice/' + name);
 
+
 const SHOOTINGAUDIOS = {
   M4: 'm4.mp3',
   BTR: 'btr.mp3',

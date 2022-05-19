@@ -107,7 +107,7 @@ cursor: pointer;
 }
 .item{
     margin: 20px;
-    width: 17vw;
+    width: 15vw;
 }
 .item:hover{
     transition: 0.3s;
@@ -175,7 +175,7 @@ left: 20vw;
 }
 
 .item{
-    width: 20vw;
+    width: 16vw;
 }
 }
 @media (max-width: 800px) {
@@ -183,7 +183,7 @@ left: 20vw;
         font-size: 17px;
     }
     .item{
-        width: 20vw;
+        width: 18vw;
     }
  }
 
@@ -197,7 +197,7 @@ left: 20vw;
         left: 15vw;
     }
     .item{
-        width: 30vw;
+        width: 15vw;
         margin: 10px;
     }
     .tank p {
@@ -219,7 +219,7 @@ left: 20vw;
     }
     .item{
         min-width:  30vw;
-        margin: 20px;
+        margin: 10px;
     }
     .tank p {
         font-size: 12px;
@@ -228,4 +228,3 @@ left: 20vw;
         font-size: 16px;
     }
  }
-}
