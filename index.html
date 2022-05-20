@@ -11,61 +11,63 @@
 <body>
   <div class="container">
       <div class="content">
-        <div class="gamezone"></div>
-        <div class="hangar">
-          <div class="choose">Выберите технику</div>
-          <div class="tanks">
-            <div class="tank"  onclick="choose('M4')"
-            >
+        <div class="gamezone">
+          <div class="hangar">
+            <div class="choose">Выберите технику</div>
+            <div class="tanks">
+              <div class="tank"  onclick="choose('M4')"
+              >
+                <img
+                  src="./sprites/m4.png"
+                  alt=""
+                  class="player item"
+                />
+                <p>Бесплатно</p>
+              </div>
+    
+              <div class="tank" onclick="choose('BTR')" >
+    
               <img
-                src="./sprites/m4.png"
+                src="./sprites/btr.png"
                 alt=""
-                class="player item"
+                class="btr item"
               />
-              <p>Бесплатно</p>
+              <p>100</p>
+              </div>
+    
+              <div class="tank" onclick="choose('AMX')">
+                <img
+                src="./sprites/amx.png"
+                alt=""
+                class="amx item"
+              />
+              <p>200</p>
+              </div>
+             
+              <div class="tank" onclick="choose('KV2')">
+                <img
+                src="./sprites/kv2.png"
+                alt=""
+                class="kv2 item"
+              />
+              <p>300</p>
+              </div>
+             
+              <div class="tank" onclick="choose('WAFEN')">
+                <img
+                src="./sprites/wafen.png"
+                alt=""
+                class="wafen item"
+              />
+              <p>1000</p>
+              </div>
             </div>
-  
-            <div class="tank" onclick="choose('BTR')" >
-  
-            <img
-              src="./sprites/btr.png"
-              alt=""
-              class="btr item"
-            />
-            <p>100</p>
-            </div>
-  
-            <div class="tank" onclick="choose('AMX')">
-              <img
-              src="./sprites/amx.png"
-              alt=""
-              class="amx item"
-            />
-            <p>200</p>
-            </div>
-           
-            <div class="tank" onclick="choose('KV2')">
-              <img
-              src="./sprites/kv2.png"
-              alt=""
-              class="kv2 item"
-            />
-            <p>300</p>
-            </div>
-           
-            <div class="tank" onclick="choose('WAFEN')">
-              <img
-              src="./sprites/wafen.png"
-              alt=""
-              class="wafen item"
-            />
-            <p>1000</p>
-            </div>
+           <div class="alert"> 
+             
+           </div>      
           </div>
-         <div class="alert"> 
-           
-         </div>      
         </div>
+        
     </div>
     <div class="footer">
       <div class="hp">
