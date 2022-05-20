@@ -41,15 +41,15 @@ body {
     width: 100vw;
     height: 93vh;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hangar{
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    position: absolute;
     max-width: 60vw;
-    left: 20vw;
-    top: 20vh; 
     background-image: url('./sprites/backmenumain.jpg');
     background-size: cover; 
     display: flex;
@@ -106,8 +106,8 @@ cursor: pointer;
     font-weight: 600;
 }
 .item{
-    margin: 20px;
-    width: 15vw;
+    margin: 15px;
+    width: 10vw;
 }
 .item:hover{
     transition: 0.3s;
@@ -154,9 +154,7 @@ display: block;
 
 @media(max-width: 1200px){
     .hangar{
-        top: 20vh;
-        max-width: 40vw;
-        left: 30vw;
+        max-width: 60vw;
         }
         .item{
             width: 15vw;
@@ -165,9 +163,7 @@ display: block;
 
 @media(max-width:998px){
 .hangar{
-top: 20vh;
 max-width: 60vw;
-left: 20vw;
 }
 
 .footer, .number{
@@ -192,9 +188,7 @@ left: 20vw;
          font-size: 12px;
      }
      .hangar{
-        top: 15vh;
         max-width: 70vw;
-        left: 15vw;
     }
     .item{
         width: 15vw;
@@ -210,9 +204,7 @@ left: 20vw;
 
 @media (max-width: 430px){
     .hangar{
-        top: 10vh;
         width: 70vw;
-        left: 15vw;
     }
     .tanks{
         flex-direction: column;
