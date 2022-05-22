@@ -306,7 +306,6 @@ function moveenemies() {
 }
 
 function enemyDeathAlert() {
-  if (enemyDead === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
+  if ([1, 3].includes(enemyDead)) playAudio(VOICEAUDIOS.ENEMYDESTR);
   else if (enemyDead === 2) playAudio(VOICEAUDIOS.ENEMYDESTR2);
-  else if (enemyDead === 3) playAudio(VOICEAUDIOS.ENEMYDESTR);
 }
