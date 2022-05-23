@@ -161,6 +161,7 @@ function moveBull(bullet, sign, size, speed, direction) {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   const tanks = [...ENEMIES_KEYS];
   const BULL = bullet.getBoundingClientRect();
+  const GAMEZONE = gamezone.getBoundingClientRect();
   const damage = parseInt(bullet.getAttribute('damage'), 10);
   for (const elem of tanks) {
     const enemy = ENEMIES[elem];
@@ -171,13 +172,13 @@ function moveBull(bullet, sign, size, speed, direction) {
       else if (strike(BULL, PLAYER)) hit(bullet, player, damage);
     }
   }
-
-  sign * bullet.getBoundingClientRect()[direction] >
-  sign * (gamezone.getBoundingClientRect()[direction] + size) ?
-    (bullet.style[direction] = `${
+  if (sign * BULL[direction] > sign * (GAMEZONE[direction] + size)) {
+    bullet.style[direction] = `${
       parseInt(bullet.style[direction].replace('px', ''), 10) - speed
-    }px`) :
+    }px`;
+  } else {
     bullet && bullet.parentNode && bullet.parentNode.removeChild(bullet);
+  }
 }
 
 function bullets() {
@@ -225,7 +226,9 @@ function game() {
   for (const [index, value] of ENEMIES_ENTRIES) {
     ENEMIES[ENEMIES_KEYS[index]] = new Enemy(value);
   }
-  (player.x = GAMEZONEWIDTH / 2), (player.y = GAMEZONEHEIGHT / 2), init();
+  player.x = GAMEZONEWIDTH / 2;
+  player.y = GAMEZONEHEIGHT / 2;
+  init();
   spawnenemies();
   controllers();
   intervalls();
