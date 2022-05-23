@@ -293,7 +293,6 @@ function moveenemies() {
         addPoints(player, enemy);
         showPoints();
         ENEMIES[key] = null;
-        console.log(enemyDead);
         enemyDeathAlert();
       } else  enemy.move();
     }
@@ -306,6 +305,7 @@ function moveenemies() {
 }
 
 function enemyDeathAlert() {
-  if ([1, 3].includes(enemyDead)) playAudio(VOICEAUDIOS.ENEMYDESTR);
-  else if (enemyDead === 2) playAudio(VOICEAUDIOS.ENEMYDESTR2);
+  if (enemyDead === 4) return;
+  if (enemyDead % 2 === 0) playAudio(VOICEAUDIOS.ENEMYDESTR);
+  else  playAudio(VOICEAUDIOS.ENEMYDESTR2);
 }
