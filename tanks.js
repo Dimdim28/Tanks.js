@@ -235,12 +235,8 @@ function game() {
   choosed = true;
 }
 
-function addPoints(elem, source) {
-  elem.points += source.points;
-}
-
-function subtPoints(elem, source) {
-  elem.points -= source.points;
+function points(elem, source, sign) {
+  elem.points += sign * source.points;
 }
 
 function choose(elem) {
@@ -293,7 +289,7 @@ function moveenemies() {
       if (enemy.hp <= 0) {
         enemy.die();
         enemyDead++;
-        addPoints(player, enemy);
+        points(player, enemy, 1);
         showPoints();
         ENEMIES[key] = null;
         enemyDeathAlert();

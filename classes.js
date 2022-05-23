@@ -17,7 +17,7 @@ class BigTank {
       const tempPoints = player.points;
       player = Object.assign(player, this);
       player.points = tempPoints;
-      subtPoints(player, this);
+      points(player, this);
       showPoints();
       hangar.style.display = 'none';
       game();
