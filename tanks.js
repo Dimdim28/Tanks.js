@@ -250,12 +250,17 @@ function choose(elem) {
   }
 }
 
+function clearIntervals (...intervals) {
+  for (const interval of intervals) {
+    clearInterval(interval);
+  }
+}
+
 function stopGame() {
   stopAudio(THEME);
   startTimeAudio(THEME);
-  clearInterval(ints.bullets);
-  clearInterval(ints.run);
-  clearInterval(ints.enemmove);
+  clearIntervals(ints.bullets, ints.run, ints.enemmove)
+
   choosed = false;
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
