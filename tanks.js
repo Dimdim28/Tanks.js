@@ -56,7 +56,7 @@ function controllers() {
   ];
   const MAP = new Map(PARAMETRS);
   document.addEventListener('keydown', e => {
-    if (k) {
+    if (choosed) {
       const VALUE = MAP.get(e.code);
       if (VALUE) {
         turn(player, ...VALUE);
@@ -232,7 +232,7 @@ function game() {
   spawnenemies();
   controllers();
   intervalls();
-  k++;
+  choosed = true;
 }
 
 function addPoints(elem, source) {
@@ -260,7 +260,7 @@ function stopGame() {
   clearInterval(ints.bullets);
   clearInterval(ints.run);
   clearInterval(ints.enemmove);
-  k = 0;
+  choosed = false;
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
     const enemy = ENEMIES[key];

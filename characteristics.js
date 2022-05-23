@@ -8,7 +8,7 @@ const alert = document.querySelector('.alert');
 const GAMEZONEWIDTH = gamezone.getBoundingClientRect().width;
 const GAMEZONEHEIGHT = gamezone.getBoundingClientRect().height;
 
-let k = 0, enemyDead = 0;
+let choosed = false, enemyDead = 0;
 const fps = 1000 / 60, colissionDamage = 300;
 
 const ints = {

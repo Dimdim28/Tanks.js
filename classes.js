@@ -13,7 +13,7 @@ class BigTank {
   }
 
   active() {
-    if (k === 0) {
+    if (!choosed) {
       const tempPoints = player.points;
       player = Object.assign(player, this);
       player.points = tempPoints;
