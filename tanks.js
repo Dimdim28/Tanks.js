@@ -235,7 +235,7 @@ function game() {
   choosed = true;
 }
 
-function points(elem, source, sign) {
+function pointsCalc(elem, source, sign) {
   elem.points += sign * source.points;
 }
 
@@ -289,11 +289,13 @@ function moveenemies() {
       if (enemy.hp <= 0) {
         enemy.die();
         enemyDead++;
-        points(player, enemy, 1);
+        pointsCalc(player, enemy, 1);
         showPoints();
         ENEMIES[key] = null;
         enemyDeathAlert();
-      } else  enemy.move();
+      } else {
+        enemy.move();
+      }
     }
   }
   if (enemyDead !== 0 && enemyDead % 4 === 0) {
