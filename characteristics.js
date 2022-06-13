@@ -17,7 +17,7 @@ const ints = {
   enemmove: false,
 };
 
-let player = {
+const player = {
   el: null,
   x: GAMEZONEWIDTH / 2,
   y: GAMEZONEHEIGHT / 2,
