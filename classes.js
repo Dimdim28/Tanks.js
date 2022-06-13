@@ -13,11 +13,11 @@ class BigTank {
   }
 
   active() {
-    if (k === 0) {
+    if (!choosed) {
       const tempPoints = player.points;
       Object.assign(player, this);
       player.points = tempPoints;
-      subtPoints(player, this);
+      pointsCalc(player, this, -1);
       showPoints();
       hangar.style.display = 'none';
       game();

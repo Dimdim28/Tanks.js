@@ -56,7 +56,7 @@ function controllers() {
   ];
   const MAP = new Map(PARAMETRS);
   document.addEventListener('keydown', e => {
-    if (k) {
+    if (choosed) {
       const VALUE = MAP.get(e.code);
       if (VALUE) {
         turn(player, ...VALUE);
@@ -161,6 +161,7 @@ function moveBull(bullet, sign, size, speed, direction) {
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   const tanks = [...ENEMIES_KEYS];
   const BULL = bullet.getBoundingClientRect();
+  const GAMEZONE = gamezone.getBoundingClientRect();
   const damage = parseInt(bullet.getAttribute('damage'), 10);
   for (const elem of tanks) {
     const enemy = ENEMIES[elem];
@@ -171,13 +172,13 @@ function moveBull(bullet, sign, size, speed, direction) {
       else if (strike(BULL, PLAYER)) hit(bullet, player, damage);
     }
   }
-
-  sign * bullet.getBoundingClientRect()[direction] >
-  sign * (gamezone.getBoundingClientRect()[direction] + size) ?
-    (bullet.style[direction] = `${
+  if (sign * BULL[direction] > sign * (GAMEZONE[direction] + size)) {
+    bullet.style[direction] = `${
       parseInt(bullet.style[direction].replace('px', ''), 10) - speed
-    }px`) :
+    }px`;
+  } else {
     bullet && bullet.parentNode && bullet.parentNode.removeChild(bullet);
+  }
 }
 
 function bullets() {
@@ -225,19 +226,17 @@ function game() {
   for (const [index, value] of ENEMIES_ENTRIES) {
     ENEMIES[ENEMIES_KEYS[index]] = new Enemy(value);
   }
-  (player.x = GAMEZONEWIDTH / 2), (player.y = GAMEZONEHEIGHT / 2), init();
+  player.x = GAMEZONEWIDTH / 2;
+  player.y = GAMEZONEHEIGHT / 2;
+  init();
   spawnenemies();
   controllers();
   intervalls();
-  k++;
+  choosed = true;
 }
 
-function addPoints(elem, source) {
-  elem.points += source.points;
-}
-
-function subtPoints(elem, source) {
-  elem.points -= source.points;
+function pointsCalc(elem, source, sign) {
+  elem.points += sign * source.points;
 }
 
 function choose(elem) {
@@ -251,13 +250,18 @@ function choose(elem) {
   }
 }
 
+function clearIntervals (...intervals) {
+  for (const interval of intervals) {
+    clearInterval(interval);
+  }
+}
+
 function stopGame() {
   stopAudio(THEME);
   startTimeAudio(THEME);
-  clearInterval(ints.bullets);
-  clearInterval(ints.run);
-  clearInterval(ints.enemmove);
-  k = 0;
+  clearIntervals(ints.bullets, ints.run, ints.enemmove)
+
+  choosed = false;
   const ENEMIES_KEYS = Object.keys(ENEMIES);
   for (const key of ENEMIES_KEYS) {
     const enemy = ENEMIES[key];
@@ -290,12 +294,13 @@ function moveenemies() {
       if (enemy.hp <= 0) {
         enemy.die();
         enemyDead++;
-        addPoints(player, enemy);
+        pointsCalc(player, enemy, 1);
         showPoints();
         ENEMIES[key] = null;
-        console.log(enemyDead);
         enemyDeathAlert();
-      } else  enemy.move();
+      } else {
+        enemy.move();
+      }
     }
   }
   if (enemyDead !== 0 && enemyDead % 4 === 0) {
@@ -306,7 +311,7 @@ function moveenemies() {
 }
 
 function enemyDeathAlert() {
-  if (enemyDead === 1) playAudio(VOICEAUDIOS.ENEMYDESTR);
-  else if (enemyDead === 2) playAudio(VOICEAUDIOS.ENEMYDESTR2);
-  else if (enemyDead === 3) playAudio(VOICEAUDIOS.ENEMYDESTR);
+  if (enemyDead === 4) return;
+  if (enemyDead % 2 === 0) playAudio(VOICEAUDIOS.ENEMYDESTR);
+  else  playAudio(VOICEAUDIOS.ENEMYDESTR2);
 }
