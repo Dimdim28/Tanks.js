@@ -17,6 +17,8 @@ const ENEMIES = {
   enemy4: null,
 };
 
+const ENEMIES_COUNT = 4;
+
 function init() {
   const div = document.createElement('div');
   div.className = 'gamer';
@@ -303,7 +305,7 @@ function moveenemies() {
       }
     }
   }
-  if (enemyDead !== 0 && enemyDead % 4 === 0) {
+  if (enemyDead !== 0 && enemyDead % ENEMIES_COUNT === 0) {
     playAudio(VOICEAUDIOS.VICTORY);
     enemyDead = 0;
     stopGame();
@@ -311,7 +313,7 @@ function moveenemies() {
 }
 
 function enemyDeathAlert() {
-  if (enemyDead === 4) return;
+  if (enemyDead === ENEMIES_COUNT) return;
   if (enemyDead % 2 === 0) playAudio(VOICEAUDIOS.ENEMYDESTR);
   else  playAudio(VOICEAUDIOS.ENEMYDESTR2);
 }

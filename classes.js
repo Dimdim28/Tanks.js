@@ -1,5 +1,7 @@
 'use strict';
 
+const ACCURACY = 4;
+
 class BigTank {
   constructor(collection = new Map()) {
     const KEYS = collection.keys();
@@ -106,7 +108,7 @@ class Enemy extends SmallTank {
 
     const DIFFERENCE = this.difference(size, side);
     if (sign * this[side] > usableSize) {
-      if (DIFFERENCE  < this[size] / 4) {
+      if (DIFFERENCE  < this[size] / ACCURACY) {
         turnToCollision(...AXIS[side]);
         this.shoot();
       } else {
