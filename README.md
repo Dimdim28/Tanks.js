@@ -1,5 +1,8 @@
 ## Tanks.js
+***
+Помимо этой работы в качестве курсовой, учавствовал в создании https://github.com/kreslavskiy/graphs и в созданных ишьюс в  https://github.com/MytsV/pixel-toons-editor рефакторил код
 
+***
 Control:
 
 WSAD -  move,  Enter - shoot;
